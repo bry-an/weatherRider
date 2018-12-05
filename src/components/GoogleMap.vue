@@ -1,9 +1,8 @@
 <template>
-  <div class="google-map" ref="map"></div>
+  <div id="google-map" ref="map"></div>
 </template>
 
 <script>
-import google from window.google
 export default {
   name: "GoogleMap",
   data() {
@@ -19,7 +18,9 @@ export default {
   },
   methods: {
     initMap() {
+      const google = window.google;
       const mapRef = this.$refs.map;
+      console.log(mapRef);
       const options = {
         zoom: 14,
         center: this.mapCenter
@@ -33,7 +34,7 @@ export default {
 };
 </script>
 <style lang="sass" scoped>
-#map
+#google-map
     height: 800px
 </style>
 
