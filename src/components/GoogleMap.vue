@@ -3,12 +3,12 @@
 </template>
 
 <script>
+import google from window.google
 export default {
   name: "GoogleMap",
   data() {
     return {
       map: null,
-      center: null,
       markers: []
     };
   },
@@ -24,8 +24,17 @@ export default {
         zoom: 14,
         center: this.mapCenter
       };
+      this.map = new google.maps.Map(mapRef, options);
     }
+  },
+  mounted() {
+    this.initMap();
   }
 };
 </script>
+<style lang="sass" scoped>
+#map
+    height: 800px
+</style>
+
 

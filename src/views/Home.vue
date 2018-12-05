@@ -1,14 +1,14 @@
 <template>
- <google-map>
+  <google-map/>
 </template>
 
 <script>
 // @ is an alias to /src
-import GoogleMap from "../components/GoogleMap"
+import GoogleMap from "../components/GoogleMap";
 export default {
-  name: 'home',
+  name: "home",
   components: {
     GoogleMap
   }
-}
+};
 </script>
