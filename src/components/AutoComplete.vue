@@ -1,0 +1,35 @@
+<template>
+  <input type="text" ref="place" v-model="placeInput" placeholder="Enter Location">
+</template>
+<script>
+const google = window.google;
+export default {
+  name: "AutoComplete",
+  data() {
+    return {
+      placeInput: "",
+      place: null
+    };
+  },
+  methods: {
+    autoComplete() {
+      const autocomplete = new google.maps.places.Autocomplete(
+        this.$refs.place
+      );
+      autocomplete.setFields(["geometry"]);
+      const infowindow = new google.maps.InfoWindow();
+      autocomplete.addListener("place_changed", () => {
+        infowindow.close();
+        let placeObject = autocomplete.getPlace();
+        this.place = placeObject.geometry.location;
+      });
+    }
+  },
+  mounted() {
+    this.autoComplete();
+  }
+};
+</script>
+
+
+
