@@ -36,6 +36,9 @@ export default {
 <style lang="sass" scoped>
 #google-map
     height: 800px
+    width: 50%
+    margin: auto
+    border-radius: 5px
 </style>
 
 
