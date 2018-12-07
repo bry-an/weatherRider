@@ -8,7 +8,8 @@ export default {
   data() {
     return {
       map: null,
-      markers: []
+      markers: [],
+      google: this.$root.$data.google
     };
   },
   computed: {
@@ -18,7 +19,6 @@ export default {
   },
   methods: {
     initMap() {
-      const google = window.google;
       const mapRef = this.$refs.map;
       console.log(mapRef);
       const options = {
@@ -29,6 +29,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("setGoogleObject", window.google);
     this.initMap();
   }
 };
