@@ -1,3 +1,4 @@
 export default {
-  getMapCenter: state => state.mapCenter
+  getMapCenter: state => state.mapCenter,
+  getGoogleObject: state => state.google
 };

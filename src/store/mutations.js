@@ -1,10 +1,8 @@
-import state from "./state";
-
 export default {
-  setMapCenter(payload) {
+  setMapCenter(state, payload) {
     state.mapCenter = payload;
   },
-  setGoogleObject(payload) {
+  setGoogleObject(state, payload) {
     state.google = payload;
   }
 };

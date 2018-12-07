@@ -13,10 +13,7 @@ describe("GoogleMaps", () => {
       localVue,
       store: new Vuex.Store({
         state
-      }),
-      mocks: {
-        google: $root.$data.google
-      }
+      })
     });
 
     return {

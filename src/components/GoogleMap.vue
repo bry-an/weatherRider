@@ -8,28 +8,30 @@ export default {
   data() {
     return {
       map: null,
-      markers: [],
-      google: this.$root.$data.google
+      markers: []
     };
   },
   computed: {
     mapCenter() {
       return this.$store.getters.getMapCenter;
+    },
+    google() {
+      return this.$store.getters.getGoogleObject;
     }
   },
   methods: {
     initMap() {
+      this.$store.commit("setGoogleObject", window.google);
       const mapRef = this.$refs.map;
       console.log(mapRef);
       const options = {
         zoom: 14,
         center: this.mapCenter
       };
-      this.map = new google.maps.Map(mapRef, options);
+      this.map = new this.google.maps.Map(mapRef, options);
     }
   },
   mounted() {
-    this.$store.commit("setGoogleObject", window.google);
     this.initMap();
   }
 };
