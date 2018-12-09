@@ -21,14 +21,14 @@ export default {
   },
   methods: {
     initMap() {
-      this.$store.commit("setGoogleObject", window.google);
+      const google = window.google;
       const mapRef = this.$refs.map;
       console.log(mapRef);
       const options = {
         zoom: 14,
         center: this.mapCenter
       };
-      this.map = new this.google.maps.Map(mapRef, options);
+      this.map = new google.maps.Map(mapRef, options);
     }
   },
   mounted() {

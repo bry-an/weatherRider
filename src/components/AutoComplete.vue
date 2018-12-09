@@ -1,5 +1,8 @@
 <template>
-  <input type="text" ref="place" v-model="placeInput" placeholder="Enter Location">
+  <div>
+    <input type="text" ref="place" v-model="placeInput" placeholder="Enter Location">
+    <button>Click me</button>
+  </div>
 </template>
 <script>
 const google = window.google;

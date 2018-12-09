@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home view renders correctly 1`] = `
+<div>
+  <auto-complete-stub />
+   
+  <google-map-stub />
+</div>
+`;

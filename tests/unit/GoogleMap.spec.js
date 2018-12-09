@@ -16,7 +16,7 @@ describe("GoogleMaps", () => {
         state
       }),
       mocks: {
-        google: googleObject
+        map: googleObject.maps.Map()
       }
     });
 
@@ -26,11 +26,12 @@ describe("GoogleMaps", () => {
   };
 
   beforeEach(() => {
-    console.info(google);
+    window.google = google;
     state = { ...initialState };
   });
 
-  it("renders correctly", () => {
+  xit("renders correctly", () => {
     const { wrapper } = build();
+    console.info(wrapper.google);
   });
 });
