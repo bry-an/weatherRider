@@ -2,6 +2,10 @@
 
 exports[`home view renders correctly 1`] = `
 <div>
+  <button>
+    Home
+  </button>
+   
   <auto-complete-stub />
    
   <google-map-stub />

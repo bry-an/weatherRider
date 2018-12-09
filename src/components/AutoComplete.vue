@@ -24,7 +24,12 @@ export default {
       autocomplete.addListener("place_changed", () => {
         infowindow.close();
         let placeObject = autocomplete.getPlace();
+        console.log(placeObject);
         this.place = placeObject.geometry.location;
+        this.$store.commit("setMapCenter", {
+          lat: this.place.lat(),
+          lng: this.place.lng()
+        });
       });
     }
   },

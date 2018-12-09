@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button>Home</button>
     <auto-complete/>
     <google-map/>
   </div>
