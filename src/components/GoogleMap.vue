@@ -31,6 +31,13 @@ export default {
       this.map = new google.maps.Map(mapRef, options);
     }
   },
+  watch: {
+    mapCenter: {
+      handler() {
+        this.map.setCenter(this.mapCenter);
+      }
+    }
+  },
   mounted() {
     this.initMap();
   }
