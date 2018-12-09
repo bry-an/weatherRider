@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" ref="place" v-model="placeInput" placeholder="Enter Location">
-    <button>Click me</button>
+    <button @click="setOrigin">Set origin</button>
   </div>
 </template>
 <script>
@@ -31,6 +31,9 @@ export default {
           lng: this.place.lng()
         });
       });
+    },
+    setOrigin() {
+      this.$store.commit("setOrigin", this.place);
     }
   },
   mounted() {

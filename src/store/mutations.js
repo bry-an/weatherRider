@@ -4,5 +4,8 @@ export default {
   },
   setGoogleObject(state, payload) {
     state.google = payload;
+  },
+  setOrigin(state, payload) {
+    state.origin = payload;
   }
 };
