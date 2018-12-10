@@ -9,18 +9,24 @@
       v-model="destinationInput"
       placeholder="Enter End Location"
     >
+    <directions-service :origin="origin" :destination="destination"/>
 
     <!-- <button @click="setOrigin">Set origin</button> -->
   </div>
 </template>
 <script>
+import DirectionsService from "./DirectionsService";
 export default {
   name: "AutoComplete",
+  components: {
+    DirectionsService
+  },
   data() {
     return {
       originInput: "",
       destinationInput: "",
-      place: null,
+      origin: null,
+      destination: null,
       google: window.google
     };
   },
@@ -33,7 +39,11 @@ export default {
       autocomplete.addListener("place_changed", () => {
         infowindow.close();
         let placeObject = autocomplete.getPlace();
-        console.log(placeObject);
+        if (ref === this.$refs.origin) {
+          this.origin = placeObject.geometry.location;
+        } else if (ref === this.$refs.destination) {
+          this.destination = placeObject.geometry.location;
+        }
         this.place = placeObject.geometry.location;
         this.$store.commit("setMapCenter", {
           lat: this.place.lat(),

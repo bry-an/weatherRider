@@ -7,5 +7,8 @@ export default {
   },
   setOrigin(state, payload) {
     state.origin = payload;
+  },
+  setRoute(state, payload) {
+    state.route = payload;
   }
 };
