@@ -13,6 +13,6 @@ describe("home view", () => {
   it("renders correctly", () => {
     const { wrapper } = build();
 
-    expect(wrapper.element).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

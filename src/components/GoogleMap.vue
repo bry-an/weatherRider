@@ -3,6 +3,8 @@
 </template>
 
 <script>
+const google = window.google;
+
 export default {
   name: "GoogleMap",
   data() {
@@ -21,7 +23,6 @@ export default {
   },
   methods: {
     initMap() {
-      const google = window.google;
       const mapRef = this.$refs.map;
       console.log(mapRef);
       const options = {

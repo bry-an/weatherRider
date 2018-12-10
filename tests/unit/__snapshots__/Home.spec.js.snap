@@ -2,8 +2,7 @@
 
 exports[`home view renders correctly 1`] = `
 <div>
-  <auto-complete-stub />
-   
-  <google-map-stub />
+  <auto-complete-stub></auto-complete-stub>
+  <google-map-stub></google-map-stub>
 </div>
 `;

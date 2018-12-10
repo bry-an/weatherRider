@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import GoogleMap from "../../src/components/GoogleMap";
 import initialState from "@/store";
 import Vuex from "vuex";
-const googleObject = require("../fixtures/googleObject.json");
+import googleObject from "../fixtures/googleObject.js";
 
 const localVue = createLocalVue();
 

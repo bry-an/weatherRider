@@ -1,26 +1,35 @@
 <template>
   <div>
-    <input type="text" ref="place" v-model="placeInput" placeholder="Enter Location">
-    <button @click="setOrigin">Set origin</button>
+    <label for="origin">Origin</label>
+    <input type="text" ref="origin" v-model="originInput" placeholder="Enter Start Location">
+    <label for="destination">Destination</label>
+    <input
+      type="text"
+      ref="destination"
+      v-model="destinationInput"
+      placeholder="Enter End Location"
+    >
+
+    <!-- <button @click="setOrigin">Set origin</button> -->
   </div>
 </template>
 <script>
-const google = window.google;
 export default {
   name: "AutoComplete",
   data() {
     return {
-      placeInput: "",
-      place: null
+      originInput: "",
+      destinationInput: "",
+      place: null,
+      google: window.google
     };
   },
   methods: {
-    autoComplete() {
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.$refs.place
-      );
+    autoComplete(ref) {
+      const googleMaps = this.google.maps;
+      const autocomplete = new googleMaps.places.Autocomplete(ref);
       autocomplete.setFields(["geometry"]);
-      const infowindow = new google.maps.InfoWindow();
+      const infowindow = new this.google.maps.InfoWindow();
       autocomplete.addListener("place_changed", () => {
         infowindow.close();
         let placeObject = autocomplete.getPlace();
@@ -34,10 +43,14 @@ export default {
     },
     setOrigin() {
       this.$store.commit("setOrigin", this.place);
+    },
+    log() {
+      console.log("placeinput in component", this.placeInput);
     }
   },
   mounted() {
-    this.autoComplete();
+    this.autoComplete(this.$refs.origin);
+    this.autoComplete(this.$refs.destination);
   }
 };
 </script>
