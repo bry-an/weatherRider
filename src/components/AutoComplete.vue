@@ -25,8 +25,8 @@ export default {
     return {
       originInput: "",
       destinationInput: "",
-      origin: null,
-      destination: null,
+      origin: {},
+      destination: {},
       google: window.google
     };
   },
