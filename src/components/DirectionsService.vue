@@ -1,6 +1,8 @@
 <template></template>
 
 <script>
+const google = window.google;
+
 export default {
   name: "DirectionsService",
   data() {
@@ -8,7 +10,6 @@ export default {
   },
   methods: {
     directionsService() {
-      const google = this.$store.getters.getGoogleObject;
       const directionsService = new google.maps.DirectionsService();
       directionsService.route(
         {
@@ -32,6 +33,13 @@ export default {
     destination: {
       type: Object,
       required: true
+    }
+  },
+  watch: {
+    destination: {
+      handler() {
+        this.directionsService();
+      }
     }
   }
 };
