@@ -1,4 +1,5 @@
 export default {
   getMapCenter: state => state.mapCenter,
-  getGoogleObject: state => state.google
+  getGoogleObject: state => state.google,
+  getRoute: state => state.route
 };

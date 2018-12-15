@@ -1,18 +1,14 @@
 <template>
   <div>
     <div id="google-map" ref="map"></div>
-    <directions-renderer :map="map"/>
   </div>
 </template>
 
 <script>
 const google = window.google;
-import DirectionsRenderer from "@/src/components/DirectionsRenderer";
 export default {
   name: "GoogleMap",
-  components: {
-    DirectionsRenderer
-  },
+  components: {},
   data() {
     return {
       map: null,
@@ -25,6 +21,9 @@ export default {
     },
     google() {
       return this.$store.getters.getGoogleObject;
+    },
+    route() {
+      return this.$store.getters.getRoute;
     }
   },
   methods: {
@@ -36,12 +35,24 @@ export default {
         center: this.mapCenter
       };
       this.map = new google.maps.Map(mapRef, options);
+    },
+    directionsRenderer() {
+      console.log("directionsrenderer");
+      const directionsDisplay = new google.maps.DirectionsRenderer({
+        map: this.map
+      });
+      directionsDisplay.setMap(this.map);
     }
   },
   watch: {
     mapCenter: {
       handler() {
         this.map.setCenter(this.mapCenter);
+      }
+    },
+    route: {
+      handler() {
+        this.directionsRenderer();
       }
     }
   },

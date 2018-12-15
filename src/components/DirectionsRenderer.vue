@@ -2,7 +2,7 @@
 
 <script>
 export default {
-  name: "DirectionsRendered",
+  name: "DirectionsRenderer",
   props: {
     route: {
       type: Object,
@@ -15,6 +15,7 @@ export default {
   },
   methods: {
     directionsRenderer() {
+      const google = window.google;
       const directionsDisplay = new google.maps.directionsRenderer({
         map: this.$store
       });

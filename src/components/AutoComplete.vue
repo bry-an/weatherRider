@@ -9,6 +9,7 @@
       v-model="destinationInput"
       placeholder="Enter End Location"
     >
+    <button @click="directionsService">Get Directions</button>
 
     <!-- <button @click="setOrigin">Set origin</button> -->
   </div>
@@ -47,11 +48,14 @@ export default {
         });
       });
     },
+    directionsService() {
+      this.$store.dispatch("directionsService", {
+        origin: this.origin,
+        destination: this.destination
+      });
+    },
     setOrigin() {
       this.$store.commit("setOrigin", this.place);
-    },
-    log() {
-      console.log("placeinput in component", this.placeInput);
     }
   },
   mounted() {
