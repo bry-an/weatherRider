@@ -9,18 +9,14 @@
       v-model="destinationInput"
       placeholder="Enter End Location"
     >
-    <directions-service :origin="origin" :destination="destination"/>
 
     <!-- <button @click="setOrigin">Set origin</button> -->
   </div>
 </template>
 <script>
-import DirectionsService from "./DirectionsService";
 export default {
   name: "AutoComplete",
-  components: {
-    DirectionsService
-  },
+  components: {},
   data() {
     return {
       originInput: "",

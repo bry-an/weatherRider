@@ -7,6 +7,10 @@ export default {
     route: {
       type: Object,
       required: true
+    },
+    map: {
+      type: Object,
+      required: true
     }
   },
   methods: {

@@ -1,12 +1,18 @@
 <template>
-  <div id="google-map" ref="map"></div>
+  <div>
+    <div id="google-map" ref="map"></div>
+    <directions-renderer :map="map"/>
+  </div>
 </template>
 
 <script>
 const google = window.google;
-
+import DirectionsRenderer from "@/src/components/DirectionsRenderer";
 export default {
   name: "GoogleMap",
+  components: {
+    DirectionsRenderer
+  },
   data() {
     return {
       map: null,

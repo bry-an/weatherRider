@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import GoogleMap from "../components/GoogleMap";
 import AutoComplete from "../components/AutoComplete";
 export default {
