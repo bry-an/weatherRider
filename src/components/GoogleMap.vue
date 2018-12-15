@@ -42,6 +42,7 @@ export default {
         map: this.map
       });
       directionsDisplay.setMap(this.map);
+      directionsDisplay.setDirections(this.route);
     }
   },
   watch: {
