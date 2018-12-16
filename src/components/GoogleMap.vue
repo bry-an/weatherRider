@@ -62,7 +62,6 @@ export default {
         this.$store.commit("setClickedPoint", point);
         this.legDestination = point;
         if (this.origin) {
-          console.log("Firing directions service");
           this.$store.dispatch("directionsService", {
             origin: this.legOrigin,
             destination: point
@@ -74,7 +73,10 @@ export default {
     directionsRenderer() {
       console.log("directionsrenderer");
       const directionsDisplay = new google.maps.DirectionsRenderer({
-        map: this.map
+        map: this.map,
+        draggable: true,
+        preserveViewport: true,
+        suppressMarkers: true
       });
       directionsDisplay.setMap(this.map);
       directionsDisplay.setDirections(this.route);
