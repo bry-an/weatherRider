@@ -26,10 +26,26 @@ export default {
       return this.$store.getters.getRoute;
     },
     origin() {
-      return this.$store.getters.origin;
+      return this.$store.getters.getOrigin;
+    },
+    legOrigin: {
+      get() {
+        return this.$store.getters.legOrigin;
+      },
+      set(newVal) {
+        this.$store.commit("setLegOrigin", newVal);
+      }
+    },
+    legDestination: {
+      get() {
+        return this.$store.getters.legDestination;
+      },
+      set(newVal) {
+        this.$store.commit("setLegDestination", newVal);
+      }
     },
     clickedPoint() {
-      return this.$store.getters.clickedPoint;
+      return this.$store.getters.getClickedPoint;
     }
   },
   methods: {
@@ -43,9 +59,10 @@ export default {
       this.map = new google.maps.Map(mapRef, options);
       this.map.addListener("click", e => {
         this.$store.commit("setClickedPoint", e.latLng);
+        this.legOrigin = this.clickedPoint;
         if (this.origin) {
           this.$store.dispatch("directionsService", {
-            origin: this.origin,
+            origin: this.legOrigin,
             destination: this.clickedPoint
           });
         }

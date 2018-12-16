@@ -13,5 +13,11 @@ export default {
   },
   setRoute(state, payload) {
     state.route = payload;
+  },
+  setLegOrigin(state, payload) {
+    state.legOrigin = payload
+  },
+  setLegDestination(state, payload) {
+    state.legDestination = payload
   }
 };

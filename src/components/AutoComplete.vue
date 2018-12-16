@@ -22,10 +22,26 @@ export default {
     return {
       originInput: "",
       destinationInput: "",
-      origin: {},
-      destination: {},
       google: window.google
     };
+  },
+  computed: {
+    origin: {
+      get() {
+        return this.$store.getters.getOrigin;
+      },
+      set(newVal) {
+        this.$store.commit("setOrigin", newVal);
+      }
+    },
+    destination: {
+      get() {
+        return this.$store.getters.get;
+      },
+      set(newVal) {
+        this.$store.commit("setLegDestination", newVal);
+      }
+    }
   },
   methods: {
     autoComplete(ref) {
