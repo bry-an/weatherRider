@@ -1,7 +1,7 @@
 <template>
   <div id="main-panel">
     <div id="google-map" ref="map"></div>
-    <div id="directions-panel" ref="directions-panel">I'm the directions panel</div>
+    <div id="directions-panel" ref="directionsPanel"></div>
   </div>
 </template>
 
@@ -81,6 +81,7 @@ export default {
       });
       directionsDisplay.setMap(this.map);
       directionsDisplay.setDirections(this.route);
+      directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
   watch: {
@@ -108,7 +109,11 @@ export default {
     border-radius: 5px
 #main-panel
   display: grid
-  grid-template-columns: 1fr 1fr
+  grid-template-columns: 2fr 1fr
+
+#directions-panel
+  border-radius: 5px
+  margin-left: 3px
 </style>
 
 
