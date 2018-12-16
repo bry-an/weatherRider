@@ -35,6 +35,9 @@ export default {
         center: this.mapCenter
       };
       this.map = new google.maps.Map(mapRef, options);
+      this.map.addListener("click", e => {
+        this.$store.commit("setClickedPoint", e.latLng);
+      });
     },
     directionsRenderer() {
       console.log("directionsrenderer");

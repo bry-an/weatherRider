@@ -1,4 +1,7 @@
 export default {
+  setClickedPoint(state, payload) {
+    state.clickedPoint = payload
+  },
   setMapCenter(state, payload) {
     state.mapCenter = payload;
   },
