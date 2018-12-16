@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div id="main-panel">
     <div id="google-map" ref="map"></div>
+    <div id="directions-panel" ref="directions-panel">I'm the directions panel</div>
   </div>
 </template>
 
@@ -102,9 +103,12 @@ export default {
 <style lang="sass" scoped>
 #google-map
     height: 800px
-    width: 50%
+    width: 100%
     margin: auto
     border-radius: 5px
+#main-panel
+  display: grid
+  grid-template-columns: 1fr 1fr
 </style>
 
 
