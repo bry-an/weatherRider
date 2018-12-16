@@ -3,5 +3,7 @@ export default {
   google: null,
   origin: null,
   route: null,
-  clickedPoint: null
+  clickedPoint: null,
+  legOrigin: null,
+  legDestination: null
 };

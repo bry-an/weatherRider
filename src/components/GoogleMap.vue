@@ -24,6 +24,12 @@ export default {
     },
     route() {
       return this.$store.getters.getRoute;
+    },
+    origin() {
+      return this.$store.getters.origin;
+    },
+    clickedPoint() {
+      return this.$store.getters.clickedPoint;
     }
   },
   methods: {
@@ -37,6 +43,12 @@ export default {
       this.map = new google.maps.Map(mapRef, options);
       this.map.addListener("click", e => {
         this.$store.commit("setClickedPoint", e.latLng);
+        if (this.origin) {
+          this.$store.dispatch("directionsService", {
+            origin: this.origin,
+            destination: this.clickedPoint
+          });
+        }
       });
     },
     directionsRenderer() {
