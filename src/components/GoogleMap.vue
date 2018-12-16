@@ -30,7 +30,7 @@ export default {
     },
     legOrigin: {
       get() {
-        return this.$store.getters.legOrigin;
+        return this.$store.getters.getLegOrigin;
       },
       set(newVal) {
         this.$store.commit("setLegOrigin", newVal);
