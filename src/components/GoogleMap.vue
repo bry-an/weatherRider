@@ -58,13 +58,16 @@ export default {
       };
       this.map = new google.maps.Map(mapRef, options);
       this.map.addListener("click", e => {
-        this.$store.commit("setClickedPoint", e.latLng);
-        this.legOrigin = this.clickedPoint;
+        const point = e.latLng;
+        this.$store.commit("setClickedPoint", point);
+        this.legDestination = point;
         if (this.origin) {
+          console.log("Firing directions service");
           this.$store.dispatch("directionsService", {
             origin: this.legOrigin,
-            destination: this.clickedPoint
+            destination: point
           });
+          this.legOrigin = point;
         }
       });
     },

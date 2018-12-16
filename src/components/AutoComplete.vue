@@ -54,6 +54,7 @@ export default {
         let placeObject = autocomplete.getPlace();
         if (ref === this.$refs.origin) {
           this.origin = placeObject.geometry.location;
+          this.$store.commit("setLegOrigin", this.origin);
         } else if (ref === this.$refs.destination) {
           this.destination = placeObject.geometry.location;
         }
@@ -69,9 +70,6 @@ export default {
         origin: this.origin,
         destination: this.destination
       });
-    },
-    setOrigin() {
-      this.$store.commit("setOrigin", this.place);
     }
   },
   mounted() {
