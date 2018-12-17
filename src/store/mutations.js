@@ -1,3 +1,5 @@
+import _ from "lodash"
+
 export default {
   setClickedPoint(state, payload) {
     state.clickedPoint = payload
@@ -19,5 +21,11 @@ export default {
   },
   setLegDestination(state, payload) {
     state.legDestination = payload
+  },
+  addLeg(state, payload) {
+    _.merge(state.route, payload)
+  },
+  setCurrentLeg(state, payload) {
+    state.currentLeg = payload
   }
 };

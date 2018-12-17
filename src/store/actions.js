@@ -10,7 +10,8 @@ export default {
             },
             (response, status) => {
                 if (status === "OK") {
-                    commit("setRoute", response);
+                    commit("setCurrentLeg", response);
+                    commit("addLeg", response);
                 }
             })
     }
