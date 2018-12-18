@@ -1,13 +1,18 @@
 <template>
-  <HelloWorld />
+  <div>
+    <auto-complete/>
+    <google-map/>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import AutoComplete from "@/components/AutoComplete";
+import GoogleMap from "@/components/GoogleMap";
 
-  export default {
-    components: {
-      HelloWorld
-    }
+export default {
+  components: {
+    AutoComplete,
+    GoogleMap
   }
+};
 </script>

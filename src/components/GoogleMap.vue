@@ -1,8 +1,14 @@
 <template>
-  <div id="main-panel">
-    <div id="google-map" ref="map"></div>
-    <div id="directions-panel" ref="directionsPanel"></div>
-  </div>
+  <v-container>
+    <v-layout row>
+      <v-flex m8>
+        <div id="google-map" ref="map"></div>
+      </v-flex>
+      <v-flex m4>
+        <div id="directions-panel" ref="directionsPanel"></div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -107,9 +113,6 @@ export default {
     width: 100%
     margin: auto
     border-radius: 5px
-#main-panel
-  display: grid
-  grid-template-columns: 2fr 1fr
 
 #directions-panel
   border-radius: 5px
