@@ -23,8 +23,9 @@ export default {
     state.legDestination = payload
   },
   addLeg(state, payload) {
-    _.merge(state.route, payload)
-  },
+    state.routes.push(payload)
+
+  }
   setCurrentLeg(state, payload) {
     state.currentLeg = payload
   }

@@ -29,8 +29,8 @@ export default {
     google() {
       return this.$store.getters.getGoogleObject;
     },
-    route() {
-      return this.$store.getters.getRoute;
+    routes() {
+      return this.$store.getters.getRoutes;
     },
     origin() {
       return this.$store.getters.getOrigin;
@@ -86,7 +86,7 @@ export default {
         suppressMarkers: true
       });
       directionsDisplay.setMap(this.map);
-      directionsDisplay.setDirections(this.route);
+      directionsDisplay.setDirections({ routes: this.routes });
       directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
