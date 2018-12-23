@@ -25,7 +25,7 @@ export default {
   addLeg(state, payload) {
     state.routes.push(payload)
 
-  }
+  },
   setCurrentLeg(state, payload) {
     state.currentLeg = payload
   }
