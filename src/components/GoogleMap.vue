@@ -96,7 +96,7 @@ export default {
         this.map.setCenter(this.mapCenter);
       }
     },
-    route: {
+    routes: {
       handler() {
         this.directionsRenderer();
       }

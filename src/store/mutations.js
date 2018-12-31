@@ -1,8 +1,8 @@
-import _ from "lodash"
+import _ from "lodash";
 
 export default {
   setClickedPoint(state, payload) {
-    state.clickedPoint = payload
+    state.clickedPoint = payload;
   },
   setMapCenter(state, payload) {
     state.mapCenter = payload;
@@ -13,20 +13,19 @@ export default {
   setOrigin(state, payload) {
     state.origin = payload;
   },
-  setRoute(state, payload) {
+  setCombinedRoute(state, payload) {
     state.route = payload;
   },
   setLegOrigin(state, payload) {
-    state.legOrigin = payload
+    state.legOrigin = payload;
   },
   setLegDestination(state, payload) {
-    state.legDestination = payload
+    state.legDestination = payload;
   },
   addLeg(state, payload) {
-    state.routes.push(payload)
-
+    state.routes.push(payload);
   },
   setCurrentLeg(state, payload) {
-    state.currentLeg = payload
+    state.currentLeg = payload;
   }
 };
