@@ -1,9 +1,7 @@
 export default {
   getMapCenter: state => state.mapCenter,
-  getRoutes: state => state.routes,
-  getCombinedRoute: state => state.combinedRoute,
+  getRoute: state => state.route,
   getClickedPoint: state => state.clickedPoint,
   getOrigin: state => state.origin,
-  getLegOrigin: state => state.legOrigin,
-  getLeg: state => state.routes.pop()
+  getLegOrigin: state => state.legOrigin
 };

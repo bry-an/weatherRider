@@ -1,8 +1,8 @@
 export default {
   mapCenter: { lat: 39.74, lng: -104.99 },
   origin: null,
-  routes: [],
-  combinedRoute: {},
+  route: {},
+  routeStack: [],
   currentLeg: {},
   clickedPoint: null,
   legOrigin: null,

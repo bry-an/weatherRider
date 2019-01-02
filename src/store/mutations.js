@@ -7,14 +7,8 @@ export default {
   setMapCenter(state, payload) {
     state.mapCenter = payload;
   },
-  setGoogleObject(state, payload) {
-    state.google = payload;
-  },
   setOrigin(state, payload) {
     state.origin = payload;
-  },
-  setCombinedRoute(state, payload) {
-    state.route = payload;
   },
   setLegOrigin(state, payload) {
     state.legOrigin = payload;
@@ -23,9 +17,10 @@ export default {
     state.legDestination = payload;
   },
   addLeg(state, payload) {
-    state.routes.push(payload);
-  },
-  setCurrentLeg(state, payload) {
+    const oldRoute = state.route;
+    const newRoute = _.merge(oldRoute, payload);
+    state.route = newRoute;
+    state.routeStack.push(newRoute);
     state.currentLeg = payload;
   }
 };

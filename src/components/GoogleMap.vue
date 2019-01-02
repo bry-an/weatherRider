@@ -26,11 +26,8 @@ export default {
     mapCenter() {
       return this.$store.getters.getMapCenter;
     },
-    google() {
-      return this.$store.getters.getGoogleObject;
-    },
-    routes() {
-      return this.$store.getters.getRoutes;
+    route() {
+      return this.$store.getters.getRoute;
     },
     origin() {
       return this.$store.getters.getOrigin;
@@ -86,7 +83,7 @@ export default {
         suppressMarkers: true
       });
       directionsDisplay.setMap(this.map);
-      directionsDisplay.setDirections({ routes: this.routes });
+      directionsDisplay.setDirections(this.route);
       directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
