@@ -3,5 +3,6 @@ export default {
   getRoute: state => state.route,
   getClickedPoint: state => state.clickedPoint,
   getOrigin: state => state.origin,
-  getLegOrigin: state => state.legOrigin
+  getLegOrigin: state => state.legOrigin,
+  getLegDestination: state => state.legDestination
 };

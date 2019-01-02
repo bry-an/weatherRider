@@ -5,7 +5,7 @@
         <div id="google-map" ref="map"></div>
       </v-flex>
       <v-flex xs4>
-        <div id="directions-panel" ref="directionsPanel">Directionsç</div>
+        <div id="directions-panel" ref="directionsPanel">Directions</div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -42,7 +42,7 @@ export default {
     },
     legDestination: {
       get() {
-        return this.$store.getters.legDestination;
+        return this.$store.getters.getLegDestination;
       },
       set(newVal) {
         this.$store.commit("setLegDestination", newVal);
@@ -62,7 +62,10 @@ export default {
       };
       this.map = new google.maps.Map(mapRef, options);
       this.map.addListener("click", e => {
-        const point = e.latLng;
+        const point = {
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng()
+        };
         this.$store.commit("setClickedPoint", point);
         this.legDestination = point;
         if (this.origin) {
@@ -93,7 +96,7 @@ export default {
         this.map.setCenter(this.mapCenter);
       }
     },
-    routes: {
+    route: {
       handler() {
         this.directionsRenderer();
       }

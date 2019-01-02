@@ -51,18 +51,18 @@ export default {
       const infowindow = new this.google.maps.InfoWindow();
       autocomplete.addListener("place_changed", () => {
         infowindow.close();
-        let placeObject = autocomplete.getPlace();
+        const placeObject = autocomplete.getPlace();
+        const place = {
+          lat: placeObject.geometry.location.lat(),
+          lng: placeObject.geometry.location.lng()
+        };
         if (ref === this.$refs.origin) {
-          this.origin = placeObject.geometry.location;
+          this.origin = place;
           this.$store.commit("setLegOrigin", this.origin);
         } else if (ref === this.$refs.destination) {
-          this.destination = placeObject.geometry.location;
+          this.destination = place;
         }
-        this.place = placeObject.geometry.location;
-        this.$store.commit("setMapCenter", {
-          lat: this.place.lat(),
-          lng: this.place.lng()
-        });
+        this.$store.commit("setMapCenter", place);
       });
     },
     directionsService() {
