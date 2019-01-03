@@ -4,5 +4,6 @@ export default {
   getClickedPoint: state => state.clickedPoint,
   getOrigin: state => state.origin,
   getLegOrigin: state => state.legOrigin,
-  getLegDestination: state => state.legDestination
+  getLegDestination: state => state.legDestination,
+  getCurrentLeg: state => state.currentLeg
 };

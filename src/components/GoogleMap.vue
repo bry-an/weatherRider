@@ -75,9 +75,11 @@ export default {
           });
           this.legOrigin = point;
         }
+        this.directionsRenderer();
       });
     },
     directionsRenderer() {
+      console.log("this.route", this.route);
       console.log("directionsrenderer");
       const directionsDisplay = new google.maps.DirectionsRenderer({
         map: this.map,
