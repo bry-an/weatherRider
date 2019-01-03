@@ -62,20 +62,23 @@ export default {
       };
       this.map = new google.maps.Map(mapRef, options);
       this.map.addListener("click", e => {
-        const point = {
+        const clickedPoint = {
           lat: e.latLng.lat(),
           lng: e.latLng.lng()
         };
-        this.$store.commit("setClickedPoint", point);
-        this.legDestination = point;
+        this.$store.commit("setClickedPoint", clickedPoint);
+        this.legDestination = clickedPoint;
         if (this.origin) {
-          this.$store.dispatch("directionsService", {
-            origin: this.legOrigin,
-            destination: point
-          });
-          this.legOrigin = point;
+          this.$store
+            .dispatch("directionsService", {
+              origin: this.legOrigin,
+              destination: clickedPoint
+            })
+            .then(() => {
+              this.directionsRenderer();
+              this.legOrigin = this.legDestination;
+            });
         }
-        this.directionsRenderer();
       });
     },
     directionsRenderer() {
@@ -97,12 +100,12 @@ export default {
       handler() {
         this.map.setCenter(this.mapCenter);
       }
-    },
-    route: {
-      handler() {
-        this.directionsRenderer();
-      }
     }
+    // route: {
+    //   handler() {
+    //     this.directionsRenderer();
+    //   }
+    // }
   },
   mounted() {
     this.initMap();
