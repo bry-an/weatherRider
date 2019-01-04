@@ -17,10 +17,8 @@ export default {
     state.legDestination = payload;
   },
   addLeg(state, payload) {
-    const oldRoute = state.route;
-    const newRoute = _.merge(oldRoute, payload);
-    state.route = newRoute;
-    state.routeStack.push(newRoute);
+    _.merge(state.route, payload);
+    state.routeStack.push(state.route);
     state.currentLeg = payload;
   }
 };
