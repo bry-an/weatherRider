@@ -1,7 +1,7 @@
 addLeg = leg => {
   state.legCount++;
   if (state.legCount === 1) {
-    state.route.geocoded_waypoints[0] = leg.geocoded_waypoints[0];
+    state.route = leg;
   }
   state.route.geocoded_waypoints[1] = leg.geocoded_waypoints[1];
 
@@ -17,8 +17,29 @@ addLeg = leg => {
   if (leg.routes[0].bounds.ma.l > state.route.routes[0].bounds.ma.l) {
     state.route.routes[0].bounds.ma.l = leg.routes[0].bounds.ma.l;
   }
+
+  state.route.routes[0].legs[0].distance.value +=
+    leg.routes[0].legs[0].distance.value;
+  state.route.routes[0].legs[0].distance.text =
+    metersToMi(state.route.routes[0].legs[0].distance.value).toString() + " mi";
+  state.route.routes[0].legs[0].duration.value +=
+    leg.routes[0].legs[0].duration.value;
+  state.route.routes[0].legs[0].duration.text =
+    secondsToMin(state.route.routes[0].legs[0].duration.value).toString() +
+    " mins";
+
+  state.route.routes[0].legs[0].end_address = leg.routes[0].legs[0].end_address;
+  state.route.routes[0].legs[0].end_location =
+    leg.routes[0].legs[0].end_location;
+
+  state.route.routes[0].legs[0].steps.push(...leg.routes[0].legs[0].steps);
+
+  state.route.routes[0].overview_path.push(...leg.routes[0].overview_path);
 };
 
 metersToMi = meters => {
   return meters / 1609.344;
+};
+secondsToMin = seconds => {
+  return seconds / 60;
 };
