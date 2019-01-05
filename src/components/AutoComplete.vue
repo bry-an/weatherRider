@@ -1,15 +1,15 @@
 <template>
   <div>
-    <label for="origin">Origin</label>
-    <input type="text" ref="origin" v-model="originInput" placeholder="Enter Start Location">
-    <label for="destination">Destination</label>
-    <input
-      type="text"
-      ref="destination"
-      v-model="destinationInput"
-      placeholder="Enter End Location"
-    >
-    <button @click="directionsService">Get Directions</button>
+    <v-form>
+      <v-text-field v-model="originInput" label="Origin" ref="origin" placeholder="Enter origin"/>
+      <v-text-field
+        v-model="destinationInput"
+        label="Destination"
+        ref="destination"
+        placeholder="Enter destination"
+      />
+    </v-form>
+    <v-btn @click="directionsService">Get Directions</v-btn>
 
     <!-- <button @click="setOrigin">Set origin</button> -->
   </div>

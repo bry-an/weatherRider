@@ -1,10 +1,10 @@
 <template>
   <v-list>
     <template v-for="step in steps">
-      <v-list-tile :key="step.encoded_lat_lngs">
+      <v-card :key="step.encoded_lat_lngs">
         <span v-html="step.instructions"/>
-      </v-list-tile>
-      <v-divider :key="step.encoded_lat_lngs"/>
+      </v-card>
+      <v-divider :key="step.encoded_lat_lngs + 1"/>
     </template>
   </v-list>
 </template>

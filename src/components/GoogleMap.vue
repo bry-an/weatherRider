@@ -6,7 +6,7 @@
       </v-flex>
       <v-flex xs4>
         <div id="directions-panel" ref="directionsPanel">
-          <directions-panel/>
+          <directions-panel v-if="route"/>
         </div>
       </v-flex>
     </v-layout>
@@ -15,6 +15,7 @@
 
 <script>
 import DirectionsPanel from "./DirectionsPanel";
+import store from "@/store";
 const google = window.google;
 export default {
   name: "GoogleMap",
@@ -27,32 +28,37 @@ export default {
   },
   computed: {
     mapCenter() {
-      return this.$store.getters.getMapCenter;
+      return store.getters.getMapCenter;
     },
     route() {
-      return this.$store.getters.getRoute;
+      return store.getters.getRoute;
     },
-    origin() {
-      return this.$store.getters.getOrigin;
+    origin: {
+      get() {
+        return store.getters.getOrigin;
+      },
+      set(newVal) {
+        store.commit("setOrigin", newVal);
+      }
     },
     legOrigin: {
       get() {
-        return this.$store.getters.getLegOrigin;
+        return store.getters.getLegOrigin;
       },
       set(newVal) {
-        this.$store.commit("setLegOrigin", newVal);
+        store.commit("setLegOrigin", newVal);
       }
     },
     legDestination: {
       get() {
-        return this.$store.getters.getLegDestination;
+        return store.getters.getLegDestination;
       },
       set(newVal) {
-        this.$store.commit("setLegDestination", newVal);
+        store.commit("setLegDestination", newVal);
       }
     },
     clickedPoint() {
-      return this.$store.getters.getClickedPoint;
+      return store.getters.getClickedPoint;
     }
   },
   methods: {
@@ -69,10 +75,10 @@ export default {
           lat: e.latLng.lat(),
           lng: e.latLng.lng()
         };
-        this.$store.commit("setClickedPoint", clickedPoint);
+        store.commit("setClickedPoint", clickedPoint);
         this.legDestination = clickedPoint;
         if (this.origin) {
-          this.$store
+          store
             .dispatch("directionsService", {
               origin: this.legOrigin,
               destination: clickedPoint
@@ -81,6 +87,9 @@ export default {
               this.directionsRenderer();
               this.legOrigin = this.legDestination;
             });
+        } else {
+          this.origin = clickedPoint;
+          this.legOrigin = clickedPoint;
         }
       });
     },
@@ -93,8 +102,9 @@ export default {
         preserveViewport: true,
         suppressMarkers: true
       });
+      directionsDisplay.setMap(null);
       directionsDisplay.setMap(this.map);
-      // directionsDisplay.setDirections(this.route);
+      directionsDisplay.setDirections(this.route);
       // directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
