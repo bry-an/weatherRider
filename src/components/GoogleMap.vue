@@ -8,7 +8,7 @@
         <div id="directions-panel" ref="directionsPanel">
           <template v-if="route">
             <directions-panel/>
-            <route-editor/>
+            <route-editor @directions-renderer="directionsRenderer()"/>
           </template>
         </div>
       </v-flex>
@@ -104,8 +104,7 @@ export default {
       });
     },
     directionsRenderer() {
-      console.log("this.route", this.route);
-      console.log("directionsrenderer");
+      console.log("directionsrendere");
       this.directionsDisplay.setMap(null);
       this.directionsDisplay.setMap(this.map);
       this.directionsDisplay.setDirections(this.route);

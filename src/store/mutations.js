@@ -21,5 +21,10 @@ export default {
     functions.addLeg(state, payload);
     state.routeStack.push(state.route);
     state.currentLeg = payload;
+  },
+  removeLeg(state) {
+    state.legCount--;
+    state.routeStack.pop();
+    state.route = state.routeStack.pop();
   }
 };
