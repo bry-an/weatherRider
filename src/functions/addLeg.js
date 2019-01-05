@@ -41,11 +41,11 @@ export default {
 
     state.route.routes[0].overview_path.push(...leg.routes[0].overview_path);
 
-    state.routes[0].overview_polyline = google.maps.geometry.encoding.encodePath(
+    state.route.routes[0].overview_polyline = google.maps.geometry.encoding.encodePath(
       state.route.routes[0].overview_path
     );
 
-    state.routes[0].summary = leg.routes[0].summary;
+    state.route.routes[0].summary = leg.routes[0].summary;
   },
 
   metersToMi(meters) {

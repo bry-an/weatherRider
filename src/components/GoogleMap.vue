@@ -5,17 +5,20 @@
         <div id="google-map" ref="map"></div>
       </v-flex>
       <v-flex xs4>
-        <div id="directions-panel" ref="directionsPanel">Directions</div>
+        <div id="directions-panel" ref="directionsPanel">
+          <directions-panel/>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import DirectionsPanel from "./DirectionsPanel";
 const google = window.google;
 export default {
   name: "GoogleMap",
-  components: {},
+  components: { DirectionsPanel },
   data() {
     return {
       map: null,
@@ -91,8 +94,8 @@ export default {
         suppressMarkers: true
       });
       directionsDisplay.setMap(this.map);
-      directionsDisplay.setDirections(this.route);
-      directionsDisplay.setPanel(this.$refs.directionsPanel);
+      // directionsDisplay.setDirections(this.route);
+      // directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
   watch: {
