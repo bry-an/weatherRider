@@ -6,5 +6,6 @@ export default {
   currentLeg: {},
   clickedPoint: null,
   legOrigin: null,
-  legDestination: null
+  legDestination: null,
+  legCount: 0
 };

@@ -1,8 +1,9 @@
 export default {
-  addLeg(leg) {
+  addLeg(state, leg) {
     state.legCount++;
     if (state.legCount === 1) {
       state.route = leg;
+      return;
     }
     state.route.geocoded_waypoints[1] = leg.geocoded_waypoints[1];
 

@@ -1,4 +1,5 @@
 import _ from "lodash";
+import functions from "@/functions/addLeg";
 
 export default {
   setClickedPoint(state, payload) {
@@ -17,7 +18,7 @@ export default {
     state.legDestination = payload;
   },
   addLeg(state, payload) {
-    _.merge(state.route, payload);
+    functions.addLeg(state, payload);
     state.routeStack.push(state.route);
     state.currentLeg = payload;
   }
