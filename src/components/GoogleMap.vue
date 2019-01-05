@@ -6,7 +6,10 @@
       </v-flex>
       <v-flex xs4>
         <div id="directions-panel" ref="directionsPanel">
-          <directions-panel v-if="route"/>
+          <template v-if="route">
+            <directions-panel/>
+            <route-editor/>
+          </template>
         </div>
       </v-flex>
     </v-layout>
@@ -15,11 +18,12 @@
 
 <script>
 import DirectionsPanel from "./DirectionsPanel";
+import RouteEditor from "./RouteEditor";
 import store from "@/store";
 const google = window.google;
 export default {
   name: "GoogleMap",
-  components: { DirectionsPanel },
+  components: { DirectionsPanel, RouteEditor },
   data() {
     return {
       map: null,
