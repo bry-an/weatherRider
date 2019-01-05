@@ -1,8 +1,11 @@
 <template>
   <v-list>
-    <v-list-tile v-for="step in steps" :key="step.encoded_lat_lngs">
-      <span v-html="step.instructions"/>
-    </v-list-tile>
+    <template v-for="step in steps">
+      <v-list-tile :key="step.encoded_lat_lngs">
+        <span v-html="step.instructions"/>
+      </v-list-tile>
+      <v-divider :key="step.encoded_lat_lngs"/>
+    </template>
   </v-list>
 </template>
 
