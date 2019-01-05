@@ -23,7 +23,13 @@ export default {
   data() {
     return {
       map: null,
-      markers: []
+      markers: [],
+      directionsDisplay: new google.maps.DirectionsRenderer({
+        map: this.map,
+        draggable: true,
+        preserveViewport: true,
+        suppressMarkers: true
+      })
     };
   },
   computed: {
@@ -96,15 +102,9 @@ export default {
     directionsRenderer() {
       console.log("this.route", this.route);
       console.log("directionsrenderer");
-      const directionsDisplay = new google.maps.DirectionsRenderer({
-        map: this.map,
-        draggable: true,
-        preserveViewport: true,
-        suppressMarkers: true
-      });
-      directionsDisplay.setMap(null);
-      directionsDisplay.setMap(this.map);
-      directionsDisplay.setDirections(this.route);
+      this.directionsDisplay.setMap(null);
+      this.directionsDisplay.setMap(this.map);
+      this.directionsDisplay.setDirections(this.route);
       // directionsDisplay.setPanel(this.$refs.directionsPanel);
     }
   },
