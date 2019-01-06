@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="removeLeg(); $emit('directions-renderer')">Undo</v-btn>
+    <v-btn @click="$emit('remove-leg')">Undo</v-btn>
     <v-btn>Return Straight</v-btn>
     <v-btn>Out and Back</v-btn>
   </div>
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     removeLeg() {
-      store.dispatch("removeLeg", this.getPreviousRoute);
+      store.dispatch("removeLeg", this.getPreviousRoute).then();
     }
   }
 };

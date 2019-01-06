@@ -28,5 +28,8 @@ export default {
   },
   decreaseLegCount(state) {
     state.legCount--;
+  },
+  removeLeg(state) {
+    state.routeStack.pop();
   }
 };
