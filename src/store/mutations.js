@@ -14,17 +14,19 @@ export default {
   setLegOrigin(state, payload) {
     state.legOrigin = payload;
   },
+  setRoute(state, payload) {
+    state.route = payload;
+  },
   setLegDestination(state, payload) {
     state.legDestination = payload;
   },
-  addLeg(state, payload) {
-    functions.addLeg(state, payload);
-    state.routeStack.push(state.route);
+  addToRouteStack(state, payload) {
+    state.routeStack.push(payload);
+  },
+  setCurrentLeg(state, payload) {
     state.currentLeg = payload;
   },
-  removeLeg(state) {
+  decreaseLegCount(state) {
     state.legCount--;
-    state.routeStack.pop();
-    state.route = state.routeStack.pop();
   }
 };

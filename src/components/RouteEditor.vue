@@ -8,11 +8,15 @@
 
 <script>
 import store from "@/store";
+import { mapGetters } from "vuex";
 export default {
   name: "RouteEditor",
+  computed: {
+    ...mapGetters(["route", "getPreviousRoute"])
+  },
   methods: {
     removeLeg() {
-      store.commit("removeLeg");
+      store.dispatch("removeLeg", this.getPreviousRoute);
     }
   }
 };

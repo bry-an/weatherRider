@@ -21,6 +21,7 @@ import DirectionsPanel from "./DirectionsPanel";
 import RouteEditor from "./RouteEditor";
 import store from "@/store";
 const google = window.google;
+import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
   components: { DirectionsPanel, RouteEditor },
@@ -37,12 +38,12 @@ export default {
     };
   },
   computed: {
-    mapCenter() {
-      return store.getters.getMapCenter;
-    },
-    route() {
-      return store.getters.getRoute;
-    },
+    ...mapGetters({
+      mapCenter: "getMapCenter",
+      route: "getRoute",
+      clickedPoint: "getClickedPoint",
+      previousRoute: "getPreviousRoute"
+    }),
     origin: {
       get() {
         return store.getters.getOrigin;
@@ -66,15 +67,11 @@ export default {
       set(newVal) {
         store.commit("setLegDestination", newVal);
       }
-    },
-    clickedPoint() {
-      return store.getters.getClickedPoint;
     }
   },
   methods: {
     initMap() {
       const mapRef = this.$refs.map;
-      console.log(mapRef);
       const options = {
         zoom: 14,
         center: this.mapCenter
@@ -104,11 +101,20 @@ export default {
       });
     },
     directionsRenderer() {
-      console.log("directionsrendere");
-      this.directionsDisplay.setMap(null);
-      this.directionsDisplay.setMap(this.map);
-      this.directionsDisplay.setDirections(this.route);
-      // directionsDisplay.setPanel(this.$refs.directionsPanel);
+      store.dispatch("directionsRenderer", {
+        directionsDisplay: this.directionsDisplay,
+        map: this.map,
+        route: this.route
+      });
+    },
+    removeLeg() {
+      store.dispatch("removeLeg", this.getPreviousRoute).then(
+        store.dispatch("directionsRenderer", {
+          directionsDisplay: this.directionsDisplay,
+          map: this.map,
+          route: this.route
+        })
+      );
     }
   },
   watch: {
