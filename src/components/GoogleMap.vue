@@ -42,7 +42,8 @@ export default {
       mapCenter: "getMapCenter",
       route: "getRoute",
       clickedPoint: "getClickedPoint",
-      previousRoute: "getPreviousRoute"
+      previousRoute: "getPreviousRoute",
+      steps: "getSteps"
     }),
     origin: {
       get() {
