@@ -33,7 +33,7 @@ export default {
     functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
   },
-  removeLeg({ state, commit, dispatch }, payload) {
+  removeLeg({ commit }, payload) {
     commit("decreaseLegCount");
     commit("setRoute", payload);
   }
