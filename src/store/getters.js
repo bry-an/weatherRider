@@ -9,5 +9,5 @@ export default {
   getLegOrigin: state => state.legOrigin,
   getLegDestination: state => state.legDestination,
   getCurrentLeg: state => state.currentLeg,
-  getPreviousRoute: state => state.routeStack[state.routeStack.length - 1]
+  getPreviousRoute: state => state.routeStack[state.routeStack.length - 2]
 };

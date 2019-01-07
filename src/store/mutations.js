@@ -21,7 +21,11 @@ export default {
     state.legDestination = payload;
   },
   addToRouteStack(state, payload) {
-    state.routeStack.push(payload);
+    state.routeStack = {
+      geocoded_waypoints: payload.geocoded_waypoints,
+      request: payload.request,
+      routes: payload.routes
+    };
   },
   setCurrentLeg(state, payload) {
     state.currentLeg = payload;

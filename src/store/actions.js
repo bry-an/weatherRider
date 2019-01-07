@@ -1,7 +1,8 @@
 import functions from "@/functions/addLeg";
+import { stat } from "fs";
 
 export default {
-  directionsService({ commit, dispatch }, payload) {
+  directionsService({ state, commit, dispatch }, payload) {
     return new Promise((resolve, reject) => {
       const google = window.google;
       const directionsService = new google.maps.DirectionsService();
@@ -26,12 +27,10 @@ export default {
     directionsDisplay.setDirections(route);
   },
   addLeg({ state, commit, getters }, payload) {
-    if (state.route) {
-      const route = getters.getRoute;
-      commit("addToRouteStack", route);
-    }
     functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
+    const route = { ...state.route };
+    if (state.legCount < 2) commit("addToRouteStack", route);
   },
   removeLeg({ commit }, payload) {
     commit("decreaseLegCount");
