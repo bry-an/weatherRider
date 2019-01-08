@@ -29,8 +29,9 @@ export default {
   addLeg({ state, commit, getters }, payload) {
     functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
-    const route = { ...state.route };
-    if (state.legCount < 2) commit("addToRouteStack", route);
+    const route = JSON.parse(JSON.stringify(state.route));
+    console.log("stringified route", route);
+    commit("addToRouteStack", route);
   },
   removeLeg({ commit }, payload) {
     commit("decreaseLegCount");
