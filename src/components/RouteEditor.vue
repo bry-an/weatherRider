@@ -3,6 +3,7 @@
     <v-btn @click="$emit('remove-leg')">Undo</v-btn>
     <v-btn>Return Straight</v-btn>
     <v-btn>Out and Back</v-btn>
+    <v-btn @click="$emit('clear-map')">Clear map</v-btn>
   </div>
 </template>
 
@@ -15,9 +16,6 @@ export default {
     ...mapGetters(["route", "getPreviousRoute"])
   },
   methods: {
-    removeLeg() {
-      store.dispatch("removeLeg", this.getPreviousRoute).then();
-    }
   }
 };
 </script>

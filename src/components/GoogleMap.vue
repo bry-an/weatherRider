@@ -8,7 +8,9 @@
         <div id="directions-panel" ref="directionsPanel">
           <template v-if="route">
             <directions-panel/>
-            <route-editor @remove-leg="removeLeg"/>
+            <route-editor 
+            @remove-leg="removeLeg"
+            @clear-map="clearMap"/>
           </template>
         </div>
       </v-flex>
@@ -109,7 +111,6 @@ export default {
       });
     },
     removeLeg() {
-      console.log("previous route", this.previousRoute);
       store.dispatch("removeLeg", this.previousRoute).then(() => {
         store.dispatch("directionsRenderer", {
           directionsDisplay: this.directionsDisplay,
@@ -118,6 +119,12 @@ export default {
         });
         store.commit("removeLeg");
       });
+    },
+    clearMap() {
+      store.dispatch("directionsRenderer", {
+        directionsDisplay: this.directionsDisplay,
+        map: this.map
+      })
     }
   },
   watch: {

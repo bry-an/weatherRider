@@ -23,14 +23,15 @@ export default {
   },
   directionsRenderer({ state }, { directionsDisplay, map, route }) {
     directionsDisplay.setMap(null);
-    directionsDisplay.setMap(map);
-    directionsDisplay.setDirections(route);
+    if (map && route) {
+      directionsDisplay.setMap(map);
+      directionsDisplay.setDirections(route);
+    }
   },
   addLeg({ state, commit, getters }, payload) {
     functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
     const route = JSON.parse(JSON.stringify(state.route));
-    console.log("stringified route", route);
     commit("addToRouteStack", route);
   },
   removeLeg({ commit }, payload) {
