@@ -17,6 +17,9 @@ export default {
   setRoute(state, payload) {
     state.route = payload;
   },
+  clearRoute(state) {
+    state.route = {};
+  },
   setLegDestination(state, payload) {
     state.legDestination = payload;
   },
@@ -28,13 +31,17 @@ export default {
     };
     state.routeStack.push(route);
   },
+  emptyRouteStack(state) {
+    state.routeStack = [];
+  },
   setCurrentLeg(state, payload) {
     state.currentLeg = payload;
   },
   decreaseLegCount(state) {
     state.legCount--;
   },
-  removeLeg(state) {
+  removeLeg(state, payload) {
+    state.route = payload;
     state.routeStack.pop();
   }
 };

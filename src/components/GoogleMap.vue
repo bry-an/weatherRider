@@ -111,20 +111,29 @@ export default {
       });
     },
     removeLeg() {
-      store.dispatch("removeLeg", this.previousRoute).then(() => {
-        store.dispatch("directionsRenderer", {
-          directionsDisplay: this.directionsDisplay,
-          map: this.map,
-          route: this.route
-        });
         store.commit("removeLeg");
-      });
+        if (!this.previousRoute) {
+          ("!this.previousRoute")
+          this.clearMap()
+        }
+        else {
+          store.dispatch("removeLeg", this.previousRoute).then(() => {
+            store.dispatch("directionsRenderer", {
+              directionsDisplay: this.directionsDisplay,
+              map: this.map,
+              route: this.route
+            });
+          });
+        }
     },
     clearMap() {
       store.dispatch("directionsRenderer", {
         directionsDisplay: this.directionsDisplay,
         map: this.map
       })
+      store.commit("emptyRouteStack")
+      store.commit("clearRoute")
+
     }
   },
   watch: {
