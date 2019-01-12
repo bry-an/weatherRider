@@ -1,14 +1,12 @@
 <template>
   <div>
-    <v-form>
-      <v-text-field v-model="originInput" label="Origin" ref="origin" placeholder="Enter origin"/>
-      <v-text-field
-        v-model="destinationInput"
-        label="Destination"
-        ref="destination"
-        placeholder="Enter destination"
-      />
-    </v-form>
+    <input v-model="originInput" label="Origin" ref="origin" placeholder="Enter origin">
+    <input
+      v-model="destinationInput"
+      label="Destination"
+      ref="destination"
+      placeholder="Enter destination"
+    >
     <v-btn @click="directionsService">Get Directions</v-btn>
 
     <!-- <button @click="setOrigin">Set origin</button> -->
