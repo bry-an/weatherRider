@@ -7,7 +7,7 @@
       ref="destination"
       placeholder="Enter destination"
     >
-    <v-btn @click="emit('comp-display-route')">Get Directions</v-btn>
+    <v-btn @click="$emit('comp-display-route')">Get Directions</v-btn>
   </div>
 </template>
 <script>

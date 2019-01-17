@@ -77,12 +77,11 @@ export default {
     computeAndDisplayRoute() {
       store
         .dispatch("directionsService", {
-          origin: this.legOrigin,
-          destination: clickedPoint
+          origin: this.origin,
+          destination: this.legDestination
         })
         .then(() => {
           this.directionsRenderer();
-          this.legOrigin = this.legDestination;
         });
     },
     initMap() {
