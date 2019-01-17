@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <auto-complete/>
+    <auto-complete @comp-display-route="computeAndDisplayRoute()"/>
     <v-layout row>
       <v-flex xs8>
         <div id="google-map" ref="map"></div>
@@ -74,6 +74,17 @@ export default {
     }
   },
   methods: {
+    computeAndDisplayRoute() {
+      store
+        .dispatch("directionsService", {
+          origin: this.legOrigin,
+          destination: clickedPoint
+        })
+        .then(() => {
+          this.directionsRenderer();
+          this.legOrigin = this.legDestination;
+        });
+    },
     initMap() {
       const mapRef = this.$refs.map;
       const options = {
@@ -141,11 +152,6 @@ export default {
         this.map.setCenter(this.mapCenter);
       }
     }
-    // route: {
-    //   handler() {
-    //     this.directionsRenderer();
-    //   }
-    // }
   },
   mounted() {
     this.initMap();
