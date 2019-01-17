@@ -1,5 +1,4 @@
 import functions from "@/functions/addLeg";
-import { stat } from "fs";
 
 export default {
   directionsService({ state, commit, dispatch }, payload) {
@@ -28,7 +27,7 @@ export default {
       directionsDisplay.setDirections(route);
     }
   },
-  addLeg({ state, commit, getters }, payload) {
+  addLeg({ state, commit }, payload) {
     functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
     const route = JSON.parse(JSON.stringify(state.route));

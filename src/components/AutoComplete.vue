@@ -34,7 +34,7 @@ export default {
     },
     destination: {
       get() {
-        return this.$store.getters.get;
+        return this.$store.getters.getLegDestination;
       },
       set(newVal) {
         this.$store.commit("setLegDestination", newVal);

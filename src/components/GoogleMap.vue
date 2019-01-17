@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <auto-complete/>
     <v-layout row>
       <v-flex xs8>
         <div id="google-map" ref="map"></div>
@@ -19,12 +20,14 @@
 <script>
 import DirectionsPanel from "./DirectionsPanel";
 import RouteEditor from "./RouteEditor";
+import AutoComplete from "@/components/AutoComplete";
+
 import store from "@/store";
 const google = window.google;
 import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
-  components: { DirectionsPanel, RouteEditor },
+  components: { DirectionsPanel, RouteEditor, AutoComplete },
   data() {
     return {
       map: null,
