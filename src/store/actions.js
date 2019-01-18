@@ -28,7 +28,7 @@ export default {
     }
   },
   addLeg({ state, commit }, payload) {
-    functions.addLeg(state.currentLeg, payload);
+    functions.addLeg(state, payload);
     commit("setCurrentLeg", payload);
     const route = JSON.parse(JSON.stringify(state.route));
     commit("addToRouteStack", route);

@@ -4,7 +4,7 @@ export default {
   addLeg(state, leg) {
     store.commit("increaseLegCount");
     if (state.legCount === 1) {
-      state.route = leg;
+      store.commit("setRoute", leg);
       return;
     }
     state.route.geocoded_waypoints[1] = leg.geocoded_waypoints[1];
