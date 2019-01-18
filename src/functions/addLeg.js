@@ -1,6 +1,8 @@
+import store from "@/store";
+
 export default {
   addLeg(state, leg) {
-    state.legCount++;
+    store.commit("increaseLegCount");
     if (state.legCount === 1) {
       state.route = leg;
       return;

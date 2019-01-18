@@ -40,6 +40,9 @@ export default {
   decreaseLegCount(state) {
     state.legCount--;
   },
+  increaseLegCount(state) {
+    state.legCount++;
+  },
   removeLeg(state, payload) {
     state.route = payload;
     state.routeStack.pop();

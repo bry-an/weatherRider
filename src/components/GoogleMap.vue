@@ -97,8 +97,8 @@ export default {
           lng: e.latLng.lng()
         };
         store.commit("setClickedPoint", clickedPoint);
-        this.legDestination = clickedPoint;
         if (this.origin) {
+          this.legDestination = clickedPoint;
           store
             .dispatch("directionsService", {
               origin: this.legOrigin,
