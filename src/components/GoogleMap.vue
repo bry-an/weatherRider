@@ -137,12 +137,10 @@ export default {
       }
     },
     clearMap() {
-      store.dispatch("directionsRenderer", {
+      store.dispatch("clearMap", {
         directionsDisplay: this.directionsDisplay,
         map: this.map
       });
-      store.commit("emptyRouteStack");
-      store.commit("clearRoute");
     }
   },
   watch: {

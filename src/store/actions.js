@@ -33,8 +33,20 @@ export default {
     const route = JSON.parse(JSON.stringify(state.route));
     commit("addToRouteStack", route);
   },
-  removeLeg({ commit }, payload) {
+  clearMap({ dispatch, commit }, payload) {
+    dispatch("directionsRenderer", {
+      directionsDisplay: payload.directionsDisplay,
+      map: payload.map
+    });
+    commit("emptyRouteStack");
+    commit("clearRoute");
+  },
+  removeLeg({ commit, getters }) {
+    const newRoute = getters["getPreviousRoute"];
     commit("decreaseLegCount");
-    commit("setRoute", payload);
+    commit("setRoute", newRoute);
+    commit("setLegOrigin", newRoute.request.origin.location);
+    commit("setLegDestination", newRoute.request.destination.location);
+    commit("popRouteStack");
   }
 };
