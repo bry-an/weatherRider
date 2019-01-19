@@ -7,13 +7,14 @@ export default {
       store.commit("setRoute", leg);
       return;
     }
+    console.log("leg in the function", leg);
     state.route.geocoded_waypoints[1] = leg.geocoded_waypoints[1];
 
-    if (leg.routes[0].bounds.fa.j < state.route.routes[0].bounds.fa.j) {
-      state.route.routes[0].bounds.fa.j = leg.routes[0].bounds.fa.j;
+    if (leg.routes[0].bounds.ga.j < state.route.routes[0].bounds.ga.j) {
+      state.route.routes[0].bounds.ga.j = leg.routes[0].bounds.ga.j;
     }
-    if (leg.routes[0].bounds.fa.l > state.route.routes[0].bounds.fa.l) {
-      state.route.routes[0].bounds.fa.l = leg.routes[0].bounds.fa.l;
+    if (leg.routes[0].bounds.ga.l > state.route.routes[0].bounds.ga.l) {
+      state.route.routes[0].bounds.ga.l = leg.routes[0].bounds.ga.l;
     }
     if (leg.routes[0].bounds.ma.j < state.route.routes[0].bounds.ma.j) {
       state.route.routes[0].bounds.ma.j = leg.routes[0].bounds.ma.j;
