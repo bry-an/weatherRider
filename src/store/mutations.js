@@ -31,6 +31,9 @@ export default {
     };
     state.routeStack.push(route);
   },
+  popRouteStack(state) {
+    state.routeStack.pop();
+  },
   emptyRouteStack(state) {
     state.routeStack = [];
   },
@@ -42,9 +45,5 @@ export default {
   },
   increaseLegCount(state) {
     state.legCount++;
-  },
-  removeLeg(state, payload) {
-    state.route = payload;
-    state.routeStack.pop();
   }
 };

@@ -122,7 +122,6 @@ export default {
       });
     },
     removeLeg() {
-      store.commit("removeLeg");
       if (!this.previousRoute) {
         console.log("!this.previousRoute");
         this.clearMap();

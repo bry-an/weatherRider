@@ -43,6 +43,7 @@ export default {
   },
   removeLeg({ commit, getters }) {
     const newRoute = getters["getPreviousRoute"];
+    console.log("newRoute in removeLeg", newRoute);
     commit("decreaseLegCount");
     commit("setRoute", newRoute);
     commit("setLegOrigin", newRoute.request.origin.location);
