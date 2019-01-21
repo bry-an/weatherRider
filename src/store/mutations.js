@@ -13,15 +13,21 @@ export default {
   },
   setLegOrigin(state, payload) {
     state.legOrigin = payload;
+    if (payload === "none") {
+      state.legOrigin = null;
+    }
   },
   setRoute(state, payload) {
     state.route = payload;
   },
   clearRoute(state) {
-    state.route = {};
+    state.route = null;
   },
   setLegDestination(state, payload) {
     state.legDestination = payload;
+    if (payload === "none") {
+      state.legDestination = null;
+    }
   },
   addToRouteStack(state, payload) {
     const route = {

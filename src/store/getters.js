@@ -1,9 +1,6 @@
 export default {
   getMapCenter: state => state.mapCenter,
   getRoute: state => state.route,
-  getSteps: state => {
-    if (state.route) return state.route.routes[0].legs[0].steps;
-  },
   getClickedPoint: state => state.clickedPoint,
   getOrigin: state => state.origin,
   getLegOrigin: state => state.legOrigin,

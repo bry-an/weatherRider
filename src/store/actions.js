@@ -20,9 +20,12 @@ export default {
       );
     });
   },
-  directionsRenderer({ state }, { directionsDisplay, map, route }) {
+  directionsRenderer({ state }, { directionsDisplay, map, route, clear }) {
+    // if (clear) {
+    //   directionsDisplay.setDirections(null);
+    // }
     directionsDisplay.setMap(null);
-    if (map && route) {
+    if (route) {
       directionsDisplay.setMap(map);
       directionsDisplay.setDirections(route);
     }
@@ -33,21 +36,24 @@ export default {
     const route = JSON.parse(JSON.stringify(state.route));
     commit("addToRouteStack", route);
   },
-  clearMap({ dispatch, commit }, payload) {
+  clearMap({ dispatch, commit }, { directionsDisplay, map }) {
     dispatch("directionsRenderer", {
-      directionsDisplay: payload.directionsDisplay,
-      map: payload.map
+      directionsDisplay: directionsDisplay,
+      map: map,
+      clear: true
     });
     commit("emptyRouteStack");
     commit("clearRoute");
+    commit("setLegOrigin", "none");
+    commit("setLegDestination", "none");
+    commit("setOrigin", "none");
   },
   removeLeg({ commit, getters }) {
     const newRoute = getters["getPreviousRoute"];
     console.log("newRoute in removeLeg", newRoute);
     commit("decreaseLegCount");
     commit("setRoute", newRoute);
-    commit("setLegOrigin", newRoute.request.origin.location);
-    commit("setLegDestination", newRoute.request.destination.location);
+    commit("setLegOrigin", newRoute.request.destination.location);
     commit("popRouteStack");
   }
 };

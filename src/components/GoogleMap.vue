@@ -6,7 +6,7 @@
         <div id="google-map" ref="map"></div>
       </v-flex>
       <v-flex xs4>
-        <div id="directions-panel" ref="directionsPanel">
+        <div id="directions-panel">
           <template v-if="route">
             <directions-panel/>
             <route-editor @remove-leg="removeLeg" @clear-map="clearMap"/>
@@ -45,8 +45,7 @@ export default {
       mapCenter: "getMapCenter",
       route: "getRoute",
       clickedPoint: "getClickedPoint",
-      previousRoute: "getPreviousRoute",
-      steps: "getSteps"
+      previousRoute: "getPreviousRoute"
     }),
     origin: {
       get() {
