@@ -21,12 +21,14 @@
 import DirectionsPanel from "./DirectionsPanel";
 import RouteEditor from "./RouteEditor";
 import AutoComplete from "@/components/AutoComplete";
+import conversions from "@/mixins/geometryConversion";
 
 import store from "@/store";
 const google = window.google;
 import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
+  mixins: [conversions],
   components: { DirectionsPanel, RouteEditor, AutoComplete },
   data() {
     return {
@@ -38,7 +40,8 @@ export default {
         preserveViewport: true,
         suppressMarkers: true
       }),
-      elevator: new google.maps.ElevationService()
+      elevator: new google.maps.ElevationService(),
+      elevation: null
     };
   },
   computed: {
@@ -92,7 +95,7 @@ export default {
         (results, status) => {
           if (status === "OK") {
             if (results[0]) {
-              console.log(results);
+              this.elevation = this.metersToFeet(results[0].elevation);
             }
           }
         }
