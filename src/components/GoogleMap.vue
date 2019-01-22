@@ -8,7 +8,7 @@
       <v-flex xs4>
         <div id="directions-panel">
           <template v-if="route">
-            <directions-panel/>
+            <directions-panel :elevation="elevation"/>
             <route-editor @remove-leg="removeLeg" @clear-map="clearMap"/>
           </template>
         </div>
@@ -37,7 +37,8 @@ export default {
         draggable: true,
         preserveViewport: true,
         suppressMarkers: true
-      })
+      }),
+      elevator: new google.maps.ElevationService()
     };
   },
   computed: {
@@ -83,19 +84,42 @@ export default {
           this.directionsRenderer();
         });
     },
+    displayLocationElevation(location, elevator) {
+      elevator.getElevationForLocations(
+        {
+          locations: [location]
+        },
+        (results, status) => {
+          if (status === "OK") {
+            if (results[0]) {
+              console.log(results);
+            }
+          }
+        }
+      );
+    },
     initMap() {
       const mapRef = this.$refs.map;
       const options = {
         zoom: 14,
-        center: this.mapCenter
+        center: this.mapCenter,
+        mapTypeId: "terrain",
+        styles: [
+          {
+            featureType: "poi",
+            stylers: [{ visibility: "off" }]
+          }
+        ]
       };
       this.map = new google.maps.Map(mapRef, options);
+
       this.map.addListener("click", e => {
         const clickedPoint = {
           lat: e.latLng.lat(),
           lng: e.latLng.lng()
         };
         store.commit("setClickedPoint", clickedPoint);
+        this.displayLocationElevation(clickedPoint, this.elevator);
         if (this.origin) {
           this.legDestination = clickedPoint;
           store

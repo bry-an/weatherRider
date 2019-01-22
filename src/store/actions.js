@@ -47,6 +47,7 @@ export default {
     commit("setLegOrigin", "none");
     commit("setLegDestination", "none");
     commit("setOrigin", "none");
+    commit("setCurrentLeg", "none");
   },
   removeLeg({ commit, getters }) {
     const newRoute = getters["getPreviousRoute"];

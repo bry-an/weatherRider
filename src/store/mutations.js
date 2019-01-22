@@ -9,13 +9,14 @@ export default {
     state.mapCenter = payload;
   },
   setOrigin(state, payload) {
-    state.origin = payload;
+    if (payload === "none") {
+      state.origin = null;
+    } else state.origin = payload;
   },
   setLegOrigin(state, payload) {
-    state.legOrigin = payload;
     if (payload === "none") {
       state.legOrigin = null;
-    }
+    } else state.legOrigin = payload;
   },
   setRoute(state, payload) {
     state.route = payload;
@@ -24,10 +25,9 @@ export default {
     state.route = null;
   },
   setLegDestination(state, payload) {
-    state.legDestination = payload;
     if (payload === "none") {
       state.legDestination = null;
-    }
+    } else state.legDestination = payload;
   },
   addToRouteStack(state, payload) {
     const route = {
@@ -44,10 +44,14 @@ export default {
     state.routeStack = [];
   },
   setCurrentLeg(state, payload) {
-    state.currentLeg = payload;
+    if (payload === "none") {
+      state.currentLeg = null;
+    } else state.currentLeg = payload;
   },
-  decreaseLegCount(state) {
-    state.legCount--;
+  decreaseLegCount(state, payload) {
+    if (payload === "none") {
+      state.legCount = 0;
+    } else state.legCount--;
   },
   increaseLegCount(state) {
     state.legCount++;
