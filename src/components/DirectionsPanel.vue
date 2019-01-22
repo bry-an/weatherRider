@@ -1,18 +1,22 @@
 <template>
-  <v-list>
-    <template v-for="step in steps">
-      <v-card :key="step.encoded_lat_lngs">
-        <span v-html="step.instructions"/>
-      </v-card>
-      <v-divider :key="step.encoded_lat_lngs + 1"/>
-    </template>
-  </v-list>
+  <div>
+    <v-list>
+      <template v-for="step in steps">
+        <v-card :key="step.encoded_lat_lngs">
+          <span v-html="step.instructions"/>
+        </v-card>
+        <v-divider :key="step.encoded_lat_lngs + 1"/>
+      </template>
+    </v-list>
+    <v-card>Elevation at clicked point: {{ elevation }}</v-card>
+  </div>
 </template>
 
 <script>
 import store from "@/store";
 export default {
   name: "DirectionsPanel",
+  props: ["elevation"],
   computed: {
     route() {
       return store.getters["getRoute"];
