@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-card>Total Elevation Change: {{ heightDiff }}</v-card>
     <v-list>
       <template v-for="step in steps">
         <v-card :key="step.encoded_lat_lngs">
@@ -8,7 +9,6 @@
         <v-divider :key="step.encoded_lat_lngs + 1"/>
       </template>
     </v-list>
-    <v-card>Elevation at clicked point: {{ elevation }}</v-card>
   </div>
 </template>
 
@@ -23,6 +23,9 @@ export default {
     },
     steps() {
       return store.getters["getRoute"].routes[0].legs[0].steps;
+    },
+    heightDiff() {
+      return store.getters["getHeightDiff"];
     }
   }
 };

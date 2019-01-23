@@ -122,7 +122,6 @@ export default {
           lng: e.latLng.lng()
         };
         store.commit("setClickedPoint", clickedPoint);
-        this.displayLocationElevation(clickedPoint, this.elevator);
         if (this.origin) {
           this.legDestination = clickedPoint;
           store

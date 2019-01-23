@@ -24,6 +24,9 @@ export default {
   clearRoute(state) {
     state.route = null;
   },
+  setHeightDiff(state, payload) {
+    state.heightDiff += payload;
+  },
   setLegDestination(state, payload) {
     if (payload === "none") {
       state.legDestination = null;

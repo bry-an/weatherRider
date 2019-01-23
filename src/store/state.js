@@ -5,6 +5,7 @@ export default {
   routeStack: [],
   currentLeg: {},
   clickedPoint: null,
+  heightDiff: 0,
   legOrigin: null,
   legDestination: null,
   legCount: 0

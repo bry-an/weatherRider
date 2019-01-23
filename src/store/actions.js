@@ -27,13 +27,14 @@ export default {
         (results, status) => {
           const elevations = results.map(x => x.elevation);
           console.log("elevations", elevations);
-          let heightDiff = 0;
+          let differential = 0;
           elevations.forEach((elevation, index) => {
             if (index > 0) {
-              heightDiff += elevation - elevations[index - 1];
+              differential += elevation - elevations[index - 1];
             }
           });
-          console.log("results from action", heightDiff);
+          commit("setHeightDiff", differential);
+          console.log("results from action", differential);
         }
       );
     });
