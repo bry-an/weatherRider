@@ -1,14 +1,14 @@
 import functions from "@/functions/addLeg";
 
 export default {
-  directionsService({ state, commit, dispatch }, payload) {
+  directionsService({ state, commit, dispatch }, { origin, destination }) {
     return new Promise((resolve, reject) => {
       const google = window.google;
       const directionsService = new google.maps.DirectionsService();
       directionsService.route(
         {
-          origin: payload.origin,
-          destination: payload.destination,
+          origin,
+          destination,
           travelMode: "BICYCLING"
         },
         (response, status) => {
@@ -16,6 +16,16 @@ export default {
             resolve(response);
             dispatch("addLeg", response);
           } else reject();
+        }
+      );
+      const elevator = new google.maps.ElevationService();
+      elevator.getElevationAlongPath(
+        {
+          path: [origin, destination],
+          samples: 12
+        },
+        (results, status) => {
+          console.log("results from action", results);
         }
       );
     });
