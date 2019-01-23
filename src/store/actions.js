@@ -25,7 +25,15 @@ export default {
           samples: 12
         },
         (results, status) => {
-          console.log("results from action", results);
+          const elevations = results.map(x => x.elevation);
+          console.log("elevations", elevations);
+          let heightDiff = 0;
+          elevations.forEach((elevation, index) => {
+            if (index > 0) {
+              heightDiff += elevation - elevations[index - 1];
+            }
+          });
+          console.log("results from action", heightDiff);
         }
       );
     });
