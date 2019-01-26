@@ -6,7 +6,6 @@ export default {
         const stepDiff = elevation - elevations[index - 1];
         if (stepDiff > 0) {
           diff += stepDiff;
-          console.log(stepDiff);
         }
       }
     });
