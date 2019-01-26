@@ -3,12 +3,13 @@ export default {
     let diff = 0;
     elevations.forEach((elevation, index) => {
       if (index > 0) {
-        const stepDiff = elevations[index + 1] - elevation;
+        const stepDiff = elevation - elevations[index - 1];
         if (stepDiff > 0) {
           diff += stepDiff;
+          console.log(stepDiff);
         }
       }
-      return diff;
     });
+    return diff;
   }
 };
