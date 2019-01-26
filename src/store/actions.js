@@ -5,6 +5,7 @@ export default {
   directionsService({ state, commit, dispatch }, { origin, destination }) {
     return new Promise((resolve, reject) => {
       const google = window.google;
+      console.log("Firing directionsService");
       const directionsService = new google.maps.DirectionsService();
       directionsService.route(
         {
@@ -28,7 +29,7 @@ export default {
         (results, status) => {
           const elevations = results.map(x => x.elevation);
           console.log("elevations", elevations);
-          let differential = elevation.calculatElevationGain(elevations);
+          let differential = elevation.calculateElevationGain(elevations);
           // elevations.forEach((elevation, index) => {
           //   if (index > 0) {
           //     differential += elevation - elevations[index - 1];
@@ -68,6 +69,7 @@ export default {
     commit("setLegDestination", "none");
     commit("setOrigin", "none");
     commit("setCurrentLeg", "none");
+    commit("decreaseLegCount", "none");
   },
   removeLeg({ commit, getters }) {
     const newRoute = getters["getPreviousRoute"];
