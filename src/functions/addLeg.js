@@ -25,8 +25,9 @@ export default {
     state.route.routes[0].legs[0].distance.value +=
       leg.routes[0].legs[0].distance.value;
     state.route.routes[0].legs[0].distance.text =
-      this.metersToMi(state.route.routes[0].legs[0].distance.value).toString() +
-      " mi";
+      this.metersToMi(state.route.routes[0].legs[0].distance.value)
+        .toFixed(2)
+        .toString() + " mi";
     state.route.routes[0].legs[0].duration.value +=
       leg.routes[0].legs[0].duration.value;
     state.route.routes[0].legs[0].duration.text =

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="$emit('remove-leg')">Undo</v-btn>
-    <v-btn>Return Straight</v-btn>
+    <v-btn @click="$emit('return-straight')">Return Straight</v-btn>
     <v-btn>Out and Back</v-btn>
     <v-btn @click="$emit('clear-map')">Clear map</v-btn>
   </div>
@@ -15,7 +15,6 @@ export default {
   computed: {
     ...mapGetters(["route", "getPreviousRoute"])
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>

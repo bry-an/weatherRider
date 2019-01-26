@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-card class="mb-2">Total Distance: {{ totalDistance }}</v-card>
     <v-card>Total Elevation Gain: {{ heightDiff }} feet</v-card>
     <v-btn @click="toggleDirections()">Display Directions</v-btn>
     <v-list v-if="directions">
@@ -32,6 +33,9 @@ export default {
     },
     heightDiff() {
       return store.getters["getHeightDiff"].toFixed(2);
+    },
+    totalDistance() {
+      return store.getters["getRoute"].routes[0].legs[0].distance.text;
     }
   },
   methods: {

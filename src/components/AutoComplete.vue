@@ -30,6 +30,14 @@ export default {
         this.$store.commit("setOrigin", newVal);
       }
     },
+    legOrigin: {
+      get() {
+        return this.$store.getters["getLegOrigin"];
+      },
+      set(newVal) {
+        this.$store.commit("setLegOrigin", newVal);
+      }
+    },
     destination: {
       get() {
         return this.$store.getters.getLegDestination;
@@ -54,6 +62,8 @@ export default {
         };
         if (ref === this.$refs.origin) {
           this.origin = place;
+          this.legOrigin = place;
+
           this.$store.commit("setLegOrigin", this.origin);
         } else if (ref === this.$refs.destination) {
           this.destination = place;

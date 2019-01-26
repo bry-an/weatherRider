@@ -9,7 +9,11 @@
         <div id="directions-panel">
           <template v-if="route">
             <directions-panel :elevation="elevation"/>
-            <route-editor @remove-leg="removeLeg" @clear-map="clearMap"/>
+            <route-editor
+              @remove-leg="removeLeg"
+              @clear-map="clearMap"
+              @return-straight="returnStraight"
+            />
           </template>
         </div>
       </v-flex>
@@ -80,7 +84,7 @@ export default {
     computeAndDisplayRoute() {
       store
         .dispatch("directionsService", {
-          origin: this.origin,
+          origin: this.legOrigin,
           destination: this.legDestination
         })
         .then(() => {
@@ -159,6 +163,10 @@ export default {
           });
         });
       }
+    },
+    returnStraight() {
+      store.commit("setLegDestination", this.origin);
+      this.computeAndDisplayRoute();
     },
     clearMap() {
       store.dispatch("clearMap", {

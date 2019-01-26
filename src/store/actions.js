@@ -30,21 +30,12 @@ export default {
           const elevations = results.map(x => x.elevation);
           console.log("elevations", elevations);
           let differential = elevation.calculateElevationGain(elevations);
-          // elevations.forEach((elevation, index) => {
-          //   if (index > 0) {
-          //     differential += elevation - elevations[index - 1];
-          //   }
-          // });
           commit("setHeightDiff", differential);
-          console.log("results from action", differential);
         }
       );
     });
   },
-  directionsRenderer({ state }, { directionsDisplay, map, route, clear }) {
-    // if (clear) {
-    //   directionsDisplay.setDirections(null);
-    // }
+  directionsRenderer({ state }, { directionsDisplay, map, route }) {
     directionsDisplay.setMap(null);
     if (route) {
       directionsDisplay.setMap(map);
@@ -59,9 +50,7 @@ export default {
   },
   clearMap({ dispatch, commit }, { directionsDisplay, map }) {
     dispatch("directionsRenderer", {
-      directionsDisplay: directionsDisplay,
-      map: map,
-      clear: true
+      directionsDisplay: directionsDisplay
     });
     commit("emptyRouteStack");
     commit("clearRoute");
