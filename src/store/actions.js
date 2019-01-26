@@ -1,5 +1,5 @@
 import functions from "@/functions/addLeg";
-import { calculateElevationGain } from "@/functions/calculateElevationGain";
+import elevation from "@/functions/calculateElevationGain";
 
 export default {
   directionsService({ state, commit, dispatch }, { origin, destination }) {
@@ -28,7 +28,7 @@ export default {
         (results, status) => {
           const elevations = results.map(x => x.elevation);
           console.log("elevations", elevations);
-          let differential = calculateElevationGain(elevations);
+          let differential = elevation.calculatElevationGain(elevations);
           // elevations.forEach((elevation, index) => {
           //   if (index > 0) {
           //     differential += elevation - elevations[index - 1];
