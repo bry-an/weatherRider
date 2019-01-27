@@ -2,10 +2,14 @@
   <v-container>
     <auto-complete @comp-display-route="computeAndDisplayRoute()"/>
     <v-layout row>
-      <v-flex xs8>
+      <v-flex xs3>
+        Weather
+        <weather-panel />
+        </v-flex>
+      <v-flex xs7>
         <div id="google-map" ref="map"></div>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs2>
         <div id="directions-panel">
           <template v-if="route">
             <directions-panel :elevation="elevation"/>
@@ -25,7 +29,9 @@
 import DirectionsPanel from "./DirectionsPanel";
 import RouteEditor from "./RouteEditor";
 import AutoComplete from "@/components/AutoComplete";
+import WeatherPanel from "@/components/WeatherPanel"
 import conversions from "@/mixins/geometryConversion";
+
 
 import store from "@/store";
 const google = window.google;
@@ -33,7 +39,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
   mixins: [conversions],
-  components: { DirectionsPanel, RouteEditor, AutoComplete },
+  components: { DirectionsPanel, RouteEditor, AutoComplete, WeatherPanel },
   data() {
     return {
       map: null,
