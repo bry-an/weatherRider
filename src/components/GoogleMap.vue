@@ -4,7 +4,7 @@
     <v-layout row>
       <v-flex xs3>
         Weather
-        <weather-panel />
+        <weather-panel v-if="currentWeather" />
         </v-flex>
       <v-flex xs7>
         <div id="google-map" ref="map"></div>
@@ -60,7 +60,8 @@ export default {
       mapCenter: "getMapCenter",
       route: "getRoute",
       clickedPoint: "getClickedPoint",
-      previousRoute: "getPreviousRoute"
+      previousRoute: "getPreviousRoute",
+      currentWeather: "getCurrentWeather"
     }),
     origin: {
       get() {

@@ -22,7 +22,7 @@
         <v-list-tile-title>
             Wind
             </v-list-tile-title>
-                {{ wind.speed }}mph from {{ wind.deg }}
+                {{ wind.speed }}mph from {{ wind.direction }}
                 </v-list-tile-content>
         </v-list-tile>
         </v-list>
@@ -32,9 +32,11 @@
 
 
 <script>
+import geometryConversion from "@/mixins/geometryConversion"
 import {mapGetters} from "vuex"
 export default {
     name: "WeatherPanel",
+    mixins: [geometryConversion],
     computed: {
         ...mapGetters({
             currentWeather: "getCurrentWeather"
@@ -44,7 +46,8 @@ export default {
         },
         wind() {
             return {
-                deg: this.currentWeather.data.wind.deg,
+                degrees: this.currentWeather.data.wind.deg,
+                direction: this.degToCardinalDirection(this.currentWeather.data.wind.deg),
                 speed: this.currentWeather.data.wind.speed
             }
         },
