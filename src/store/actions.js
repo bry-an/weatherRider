@@ -1,12 +1,18 @@
 import functions from "@/functions/addLeg";
 import elevation from "@/functions/calculateElevationGain";
 
+import axios from "axios"
+
 export default {
   directionsService({ state, commit, dispatch }, { origin, destination }) {
     return new Promise((resolve, reject) => {
       const google = window.google;
       console.log("Firing directionsService");
       const directionsService = new google.maps.DirectionsService();
+      dispatch("getCurrentWeather", {
+        lat: origin.lat,
+        lng: origin.lng
+      })
       directionsService.route(
         {
           origin,
@@ -28,7 +34,6 @@ export default {
         },
         (results, status) => {
           const elevations = results.map(x => x.elevation);
-          console.log("elevations", elevations);
           let differential = elevation.calculateElevationGain(elevations);
           commit("setHeightDiff", differential);
         }
@@ -41,6 +46,11 @@ export default {
       directionsDisplay.setMap(map);
       directionsDisplay.setDirections(route);
     }
+  },
+  getCurrentWeather({state, commit}, {lat, lng}) {
+    const url = "https://api.openweathermap.org/data/2.5/weather?APPID=1af38fcbab6d390a11b52f1a3c19fe7f&units=imperial&lat=" + lat + "&lon=" + lng;
+    axios.get(url)
+      .then(response => commit("setCurrentWeather", response))
   },
   addLeg({ state, commit }, payload) {
     functions.addLeg(state, payload);

@@ -8,5 +8,6 @@ export default {
   heightDiff: 0,
   legOrigin: null,
   legDestination: null,
-  legCount: 0
+  legCount: 0,
+  currentWeather: null
 };

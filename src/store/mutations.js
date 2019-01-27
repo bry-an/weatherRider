@@ -58,5 +58,8 @@ export default {
   },
   increaseLegCount(state) {
     state.legCount++;
+  },
+  setCurrentWeather(state, payload) {
+    state.currentWeather = payload
   }
 };
