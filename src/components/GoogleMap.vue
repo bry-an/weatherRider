@@ -43,6 +43,7 @@ export default {
         draggable: true,
         preserveViewport: true,
         suppressMarkers: true
+        // polylineOptions: { strokeColor }
       }),
       elevator: new google.maps.ElevationService(),
       elevation: null
@@ -167,6 +168,7 @@ export default {
     returnStraight() {
       store.commit("setLegDestination", this.origin);
       this.computeAndDisplayRoute();
+      store.commit("setLegOrigin", this.origin)
     },
     clearMap() {
       store.dispatch("clearMap", {
