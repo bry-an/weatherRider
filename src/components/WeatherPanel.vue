@@ -3,7 +3,7 @@
 <v-list>
     <v-list-tile>
             <v-list-tile-content>
-        <v-list-tile-title>
+        <v-list-tile-title class="title">
             Description
             </v-list-tile-title>
                 {{ description }}
@@ -11,7 +11,7 @@
         </v-list-tile>
         <v-list-tile>
             <v-list-tile-content>
-        <v-list-tile-title>
+        <v-list-tile-title class="title">
             Temperature
             </v-list-tile-title>
                 {{ temp }}&deg; F
@@ -19,10 +19,10 @@
         </v-list-tile>
         <v-list-tile>
             <v-list-tile-content>
-        <v-list-tile-title>
+        <v-list-tile-title class="title">
             Wind
             </v-list-tile-title>
-                {{ wind.speed }}mph from {{ wind.direction }}
+                {{ wind.speed }} mph from the {{ wind.direction }}
                 </v-list-tile-content>
         </v-list-tile>
         </v-list>
@@ -46,7 +46,6 @@ export default {
         },
         wind() {
             return {
-                degrees: this.currentWeather.data.wind.deg,
                 direction: this.degToCardinalDirection(this.currentWeather.data.wind.deg),
                 speed: this.currentWeather.data.wind.speed
             }
