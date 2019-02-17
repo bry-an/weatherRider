@@ -1,17 +1,13 @@
 <template>
   <div>
-    <label for="origin">Origin</label>
-    <input type="text" ref="origin" v-model="originInput" placeholder="Enter Start Location">
-    <label for="destination">Destination</label>
+    <input v-model="originInput" label="Origin" ref="origin" placeholder="Enter origin">
     <input
-      type="text"
-      ref="destination"
       v-model="destinationInput"
-      placeholder="Enter End Location"
+      label="Destination"
+      ref="destination"
+      placeholder="Enter destination"
     >
-    <button @click="directionsService">Get Directions</button>
-
-    <!-- <button @click="setOrigin">Set origin</button> -->
+    <v-btn @click="$emit('comp-display-route')">Get Directions</v-btn>
   </div>
 </template>
 <script>
@@ -34,9 +30,17 @@ export default {
         this.$store.commit("setOrigin", newVal);
       }
     },
+    legOrigin: {
+      get() {
+        return this.$store.getters["getLegOrigin"];
+      },
+      set(newVal) {
+        this.$store.commit("setLegOrigin", newVal);
+      }
+    },
     destination: {
       get() {
-        return this.$store.getters.get;
+        return this.$store.getters.getLegDestination;
       },
       set(newVal) {
         this.$store.commit("setLegDestination", newVal);
@@ -51,18 +55,20 @@ export default {
       const infowindow = new this.google.maps.InfoWindow();
       autocomplete.addListener("place_changed", () => {
         infowindow.close();
-        let placeObject = autocomplete.getPlace();
+        const placeObject = autocomplete.getPlace();
+        const place = {
+          lat: placeObject.geometry.location.lat(),
+          lng: placeObject.geometry.location.lng()
+        };
         if (ref === this.$refs.origin) {
-          this.origin = placeObject.geometry.location;
+          this.origin = place;
+          this.legOrigin = place;
+
           this.$store.commit("setLegOrigin", this.origin);
         } else if (ref === this.$refs.destination) {
-          this.destination = placeObject.geometry.location;
+          this.destination = place;
         }
-        this.place = placeObject.geometry.location;
-        this.$store.commit("setMapCenter", {
-          lat: this.place.lat(),
-          lng: this.place.lng()
-        });
+        this.$store.commit("setMapCenter", place);
       });
     },
     directionsService() {

@@ -1,104 +1,193 @@
 <template>
   <v-container>
+    <auto-complete @comp-display-route="computeAndDisplayRoute()"/>
     <v-layout row>
-      <v-flex xs8>
+      <v-flex xs3>
+        Weather
+        <weather-panel v-if="currentWeather" />
+        </v-flex>
+      <v-flex xs7>
         <div id="google-map" ref="map"></div>
       </v-flex>
-      <v-flex xs4>
-        <div id="directions-panel" ref="directionsPanel">Directionsç</div>
+      <v-flex xs2>
+        <div id="directions-panel">
+          <template v-if="route">
+            <directions-panel :elevation="elevation"/>
+            <route-editor
+              @remove-leg="removeLeg"
+              @clear-map="clearMap"
+              @return-straight="returnStraight"
+            />
+          </template>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import DirectionsPanel from "./DirectionsPanel";
+import RouteEditor from "./RouteEditor";
+import AutoComplete from "@/components/AutoComplete";
+import WeatherPanel from "@/components/WeatherPanel"
+import conversions from "@/mixins/geometryConversion";
+
+
+import store from "@/store";
 const google = window.google;
+import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
-  components: {},
+  mixins: [conversions],
+  components: { DirectionsPanel, RouteEditor, AutoComplete, WeatherPanel },
   data() {
     return {
       map: null,
-      markers: []
-    };
-  },
-  computed: {
-    mapCenter() {
-      return this.$store.getters.getMapCenter;
-    },
-    google() {
-      return this.$store.getters.getGoogleObject;
-    },
-    routes() {
-      return this.$store.getters.getRoutes;
-    },
-    origin() {
-      return this.$store.getters.getOrigin;
-    },
-    legOrigin: {
-      get() {
-        return this.$store.getters.getLegOrigin;
-      },
-      set(newVal) {
-        this.$store.commit("setLegOrigin", newVal);
-      }
-    },
-    legDestination: {
-      get() {
-        return this.$store.getters.legDestination;
-      },
-      set(newVal) {
-        this.$store.commit("setLegDestination", newVal);
-      }
-    },
-    clickedPoint() {
-      return this.$store.getters.getClickedPoint;
-    }
-  },
-  methods: {
-    initMap() {
-      const mapRef = this.$refs.map;
-      console.log(mapRef);
-      const options = {
-        zoom: 14,
-        center: this.mapCenter
-      };
-      this.map = new google.maps.Map(mapRef, options);
-      this.map.addListener("click", e => {
-        const point = e.latLng;
-        this.$store.commit("setClickedPoint", point);
-        this.legDestination = point;
-        if (this.origin) {
-          this.$store.dispatch("directionsService", {
-            origin: this.legOrigin,
-            destination: point
-          });
-          this.legOrigin = point;
-        }
-      });
-    },
-    directionsRenderer() {
-      console.log("directionsrenderer");
-      const directionsDisplay = new google.maps.DirectionsRenderer({
+      markers: [],
+      directionsDisplay: new google.maps.DirectionsRenderer({
         map: this.map,
         draggable: true,
         preserveViewport: true,
         suppressMarkers: true
+        // polylineOptions: { strokeColor }
+      }),
+      elevator: new google.maps.ElevationService(),
+      elevation: null
+    };
+  },
+  computed: {
+    ...mapGetters({
+      mapCenter: "getMapCenter",
+      route: "getRoute",
+      clickedPoint: "getClickedPoint",
+      previousRoute: "getPreviousRoute",
+      currentWeather: "getCurrentWeather"
+    }),
+    origin: {
+      get() {
+        return store.getters.getOrigin;
+      },
+      set(newVal) {
+        store.commit("setOrigin", newVal);
+      }
+    },
+    legOrigin: {
+      get() {
+        return store.getters.getLegOrigin;
+      },
+      set(newVal) {
+        store.commit("setLegOrigin", newVal);
+      }
+    },
+    legDestination: {
+      get() {
+        return store.getters.getLegDestination;
+      },
+      set(newVal) {
+        store.commit("setLegDestination", newVal);
+      }
+    }
+  },
+  methods: {
+    computeAndDisplayRoute() {
+      store
+        .dispatch("directionsService", {
+          origin: this.legOrigin,
+          destination: this.legDestination
+        })
+        .then(() => {
+          this.directionsRenderer();
+        });
+    },
+    displayLocationElevation(location, elevator) {
+      elevator.getElevationForLocations(
+        {
+          locations: [location]
+        },
+        (results, status) => {
+          if (status === "OK") {
+            if (results[0]) {
+              this.elevation = this.metersToFeet(results[0].elevation);
+            }
+          }
+        }
+      );
+    },
+    initMap() {
+      const mapRef = this.$refs.map;
+      const options = {
+        zoom: 14,
+        center: this.mapCenter,
+        mapTypeId: "terrain",
+        styles: [
+          {
+            featureType: "poi",
+            stylers: [{ visibility: "off" }]
+          }
+        ]
+      };
+      this.map = new google.maps.Map(mapRef, options);
+
+      this.map.addListener("click", e => {
+        const clickedPoint = {
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng()
+        };
+        store.commit("setClickedPoint", clickedPoint);
+        if (this.origin) {
+          this.legDestination = clickedPoint;
+          store
+            .dispatch("directionsService", {
+              origin: this.legOrigin,
+              destination: clickedPoint
+            })
+            .then(() => {
+              this.directionsRenderer();
+              this.legOrigin = this.legDestination;
+            });
+        } else {
+          this.origin = clickedPoint;
+          this.legOrigin = clickedPoint;
+        }
       });
-      directionsDisplay.setMap(this.map);
-      directionsDisplay.setDirections({ routes: this.routes });
-      directionsDisplay.setPanel(this.$refs.directionsPanel);
+    },
+    directionsRenderer() {
+      store.dispatch("directionsRenderer", {
+        directionsDisplay: this.directionsDisplay,
+        map: this.map,
+        route: this.route
+      });
+    },
+    removeLeg() {
+      if (!this.previousRoute) {
+        console.log("!this.previousRoute");
+        this.clearMap();
+      } else {
+        store.dispatch("removeLeg", this.previousRoute).then(() => {
+          store.dispatch("directionsRenderer", {
+            directionsDisplay: this.directionsDisplay,
+            map: this.map,
+            route: this.route
+          });
+        });
+      }
+    },
+    returnStraight() {
+      store.commit("setLegDestination", this.origin);
+      this.computeAndDisplayRoute();
+      store.commit("setLegOrigin", this.origin)
+    },
+    clearMap() {
+      store.dispatch("clearMap", {
+        directionsDisplay: this.directionsDisplay,
+        map: this.map
+      });
     }
   },
   watch: {
     mapCenter: {
       handler() {
         this.map.setCenter(this.mapCenter);
-      }
-    },
-    route: {
-      handler() {
-        this.directionsRenderer();
       }
     }
   },
