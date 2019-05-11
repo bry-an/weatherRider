@@ -9,18 +9,6 @@ export default {
     }
     state.route.geocoded_waypoints[1] = leg.geocoded_waypoints[1];
 
-    // if (leg.routes[0].bounds.ga.j < state.route.routes[0].bounds.ga.j) {
-    //   state.route.routes[0].bounds.ga.j = leg.routes[0].bounds.ga.j;
-    // }
-    // if (leg.routes[0].bounds.ga.l > state.route.routes[0].bounds.ga.l) {
-    //   state.route.routes[0].bounds.ga.l = leg.routes[0].bounds.ga.l;
-    // }
-    // if (leg.routes[0].bounds.ma.j < state.route.routes[0].bounds.ma.j) {
-    //   state.route.routes[0].bounds.ma.j = leg.routes[0].bounds.ma.j;
-    // }
-    // if (leg.routes[0].bounds.ma.l > state.route.routes[0].bounds.ma.l) {
-    //   state.route.routes[0].bounds.ma.l = leg.routes[0].bounds.ma.l;
-    // }
 
     state.route.routes[0].legs[0].distance.value +=
       leg.routes[0].legs[0].distance.value;

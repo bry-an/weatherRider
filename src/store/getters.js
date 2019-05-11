@@ -8,5 +8,6 @@ export default {
   getLegDestination: state => state.legDestination,
   getCurrentLeg: state => state.currentLeg,
   getPreviousRoute: state => state.routeStack[state.routeStack.length - 2],
-  getCurrentWeather: state => state.currentWeather
+  getCurrentWeatherOrigin: state => state.currentWeather[0],
+  getCurrentWeatherDestination: state => state.currentWeather[state.currentWeather.length - 1]
 };

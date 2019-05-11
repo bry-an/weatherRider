@@ -9,5 +9,5 @@ export default {
   legOrigin: null,
   legDestination: null,
   legCount: 0,
-  currentWeather: null
+  currentWeather: []
 };

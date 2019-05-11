@@ -59,7 +59,10 @@ export default {
   increaseLegCount(state) {
     state.legCount++;
   },
-  setCurrentWeather(state, payload) {
-    state.currentWeather = payload
+  setOriginWeather(state, payload) {
+    state.route.weather.origin = payload
+  },
+  setDestinationWeather(state, payload) {
+    state.route.weather.destination = payload
   }
 };

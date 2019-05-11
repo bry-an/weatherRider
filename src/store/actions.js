@@ -11,7 +11,14 @@ export default {
       const directionsService = new google.maps.DirectionsService();
       dispatch("getCurrentWeather", {
         lat: origin.lat,
-        lng: origin.lng
+        lng: origin.lng,
+        mutation: "setOriginWeather"
+
+      })
+      dispatch("getCurrentWeather", {
+        lat: destination.lat,
+        lng: destination.lng,
+        mutation: "setDestinationWeather"
       })
       directionsService.route(
         {
@@ -33,8 +40,8 @@ export default {
           samples: 12
         },
         (results, status) => {
-          const elevations = results.map(x => x.elevation);
-          let differential = elevation.calculateElevationGain(elevations);
+          const elevations = results.map(result => result.elevation);
+          const differential = elevation.calculateElevationGain(elevations);
           commit("setHeightDiff", differential);
         }
       );
@@ -47,10 +54,10 @@ export default {
       directionsDisplay.setDirections(route);
     }
   },
-  getCurrentWeather({state, commit}, {lat, lng}) {
+  getCurrentWeather({ state, commit }, { lat, lng, mutation }) {
     const url = "https://api.openweathermap.org/data/2.5/weather?APPID=1af38fcbab6d390a11b52f1a3c19fe7f&units=imperial&lat=" + lat + "&lon=" + lng;
     axios.get(url)
-      .then(response => commit("setCurrentWeather", response))
+      .then(response => commit(mutation, response))
   },
   addLeg({ state, commit }, payload) {
     functions.addLeg(state, payload);
